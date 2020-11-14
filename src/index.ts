@@ -10,6 +10,7 @@ import { provincesHandler } from './handlers/provincesHandler';
 import { countriesHandler } from './handlers/countriesHandler';
 import { cssHandler } from './handlers/cssHandler';
 import { errorHandler } from './handlers/errorHandler';
+import { httpErrorHandler } from './handlers/httpErrorHandler';
 
 const corsOptions: cors.CorsOptions = {
   allowedHeaders: [ 'Content-Type' ],
@@ -47,6 +48,7 @@ app.use(compression());
 app.use(helmet());
 app.use(cors(corsOptions));
 app.use('/geoLocation', router);
+app.use(httpErrorHandler);
 app.use(errorHandler);
 
 app.listen(HTTP_PORT, () => {

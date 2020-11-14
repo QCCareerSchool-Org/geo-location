@@ -1,6 +1,6 @@
 import * as HttpStatus from '@qccareerschool/http-status';
-import { Request, Response } from 'express';
 
+import { asyncWrapper } from '../lib/asyncWrapper';
 import { pool } from '../pool';
 
 export type Province = {
@@ -14,7 +14,7 @@ export type Province = {
  * @param req Express request
  * @param res Express response
  */
-export const provincesHandler = async (req: Request, res: Response): Promise<void> => {
+export const provincesHandler = asyncWrapper(async (req, res) => {
   const MAX_AGE = 86400; // one day
 
   if (typeof req.query.countryCode === 'undefined') {
@@ -35,4 +35,4 @@ export const provincesHandler = async (req: Request, res: Response): Promise<voi
   } finally {
     p.releaseConnection(connection);
   }
-};
+});

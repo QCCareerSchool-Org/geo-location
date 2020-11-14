@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-
+import { asyncWrapper } from '../lib/asyncWrapper';
 import { pool } from '../pool';
 
 export type Country = {
@@ -12,7 +11,7 @@ export type Country = {
  * @param req Express request
  * @param res Express response
  */
-export const countriesHandler = async (req: Request, res: Response): Promise<void> => {
+export const countriesHandler = asyncWrapper(async (req, res) => {
   const MAX_AGE = 86400; // one day
 
   const p = await pool;
@@ -30,4 +29,4 @@ export const countriesHandler = async (req: Request, res: Response): Promise<voi
   } finally {
     p.releaseConnection(connection);
   }
-};
+});

@@ -1,6 +1,6 @@
 import * as HttpStatus from '@qccareerschool/http-status';
-import { Request, Response } from 'express';
 
+import { asyncWrapper } from '../lib/asyncWrapper';
 import { GeoLocation, getLocation } from '../lib/getLocation';
 
 /**
@@ -8,7 +8,7 @@ import { GeoLocation, getLocation } from '../lib/getLocation';
  * @param req Express request
  * @param res Express response
  */
-export const cssHandler = async (req: Request, res: Response): Promise<void> => {
+export const cssHandler = asyncWrapper(async (req, res) => {
   const MAX_AGE = 14400; // four hours
 
   if (typeof req.clientIp === 'undefined') {
@@ -23,7 +23,7 @@ export const cssHandler = async (req: Request, res: Response): Promise<void> => 
   } catch (err) {
     throw new HttpStatus.InternalServerError(err.message);
   }
-};
+});
 
 export const prepareCSS = (geoLocation: GeoLocation, important = true): string => {
   const imp = important ? '!important' : '';
