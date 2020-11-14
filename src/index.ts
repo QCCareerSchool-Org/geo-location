@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
@@ -44,9 +43,6 @@ router.get('/ip', requestIp.mw(), geoLocationHandler);
 router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(compression());
 app.use(helmet());
 app.use(cors(corsOptions));
