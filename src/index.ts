@@ -4,7 +4,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import * as maxmind from 'maxmind';
+import maxmind, { Reader, CityResponse } from 'maxmind';
 import requestIp from 'request-ip';
 
 import { logger } from './logger';
@@ -62,8 +62,8 @@ app.listen(HTTP_PORT, () => {
   logger.info(`Server running on port ${HTTP_PORT}`);
 });
 
-let cityLookup: maxmind.Reader<maxmind.CityResponse>;
-maxmind.open<maxmind.CityResponse>('/usr/share/GeoIP/GeoLite2-City.mmdb').then(c => {
+let cityLookup: Reader<CityResponse>;
+maxmind.open<CityResponse>('/usr/share/GeoIP/GeoLite2-City.mmdb').then(c => {
   cityLookup = c;
 }).catch(err => {
   logger.error('Error opening maxmind database', err);
