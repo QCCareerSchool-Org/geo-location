@@ -1,4 +1,4 @@
-import HttpStatus from '@qccareerschool/http-status';
+import * as HttpStatus from '@qccareerschool/http-status';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
