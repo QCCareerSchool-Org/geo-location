@@ -1,7 +1,6 @@
 import { NodemailerTransport } from '@qccareerschool/winston-nodemailer';
-import * as dotenv from 'dotenv';
-import * as winston from 'winston';
-import { format, transports } from 'winston';
+import dotenv from 'dotenv';
+import winston, { format, transports } from 'winston';
 
 dotenv.config();
 
@@ -23,7 +22,7 @@ const host = process.env.EMAIL_HOST;
 if (typeof process.env.EMAIL_TLS === 'undefined') {
   throw new Error('EMAIL_TLS not specified in .env file');
 }
-const tls = process.env.EMAIL_TLS === 'TRUE' ? true : false;
+const tls = process.env.EMAIL_TLS === 'true' ? true : false;
 
 if (typeof process.env.EMAIL_TO === 'undefined') {
   throw new Error('EMAIL_TO not specified in .env file');
