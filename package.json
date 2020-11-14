@@ -1,13 +1,11 @@
 {
   "name": "geo-location",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "author": "Dave Welsh",
   "license": "UNLICENSED",
