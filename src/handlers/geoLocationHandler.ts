@@ -1,6 +1,6 @@
 import * as HttpStatus from '@qccareerschool/http-status';
-import { Request, Response } from 'express';
 
+import { asyncWrapper } from '../lib/asyncWrapper';
 import { getLocation } from '../lib/getLocation';
 
 /**
@@ -8,7 +8,7 @@ import { getLocation } from '../lib/getLocation';
  * @param req Express request
  * @param res Express response
  */
-export const geoLocationHandler = async (req: Request, res: Response): Promise<void> => {
+export const geoLocationHandler = asyncWrapper(async (req, res) => {
   const MAX_AGE = 600; // ten minutes
 
   if (typeof req.clientIp === 'undefined') {
@@ -23,4 +23,4 @@ export const geoLocationHandler = async (req: Request, res: Response): Promise<v
   } catch(err) {
     throw new HttpStatus.InternalServerError(err.message);
   }
-};
+});
