@@ -40,7 +40,7 @@ export const logger = winston.createLogger({
       format: format.combine(format.colorize()),
     }),
     new transports.File({
-      filename: '/var/log/web-geolocation.log',
+      filename: '/var/log/node-geo-location.log',
     }),
     new NodemailerTransport({
       auth: {
