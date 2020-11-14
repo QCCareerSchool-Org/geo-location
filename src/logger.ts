@@ -7,12 +7,12 @@ dotenv.config();
 if (typeof process.env.EMAIL_USERNAME === 'undefined') {
   throw new Error('EMAIL_USERNAME not specified in .env file');
 }
-const username = process.env.EMAIL_USERNAME;
+const user = process.env.EMAIL_USERNAME;
 
 if (typeof process.env.EMAIL_PASSWORD === 'undefined') {
   throw new Error('EMAIL_PASSWORD not specified in .env file');
 }
-const password = process.env.EMAIL_PASSWORD;
+const pass = process.env.EMAIL_PASSWORD;
 
 if (typeof process.env.EMAIL_HOST === 'undefined') {
   throw new Error('EMAIL_HOST not specified in .env file');
@@ -24,6 +24,11 @@ if (typeof process.env.EMAIL_TLS === 'undefined') {
 }
 const tls = process.env.EMAIL_TLS === 'true' ? true : false;
 
+if (typeof process.env.EMAIL_PORT === 'undefined') {
+  throw new Error('EMAIL_PORT not specified in .env file');
+}
+const port = parseInt(process.env.EMAIL_PORT, 10);
+
 if (typeof process.env.EMAIL_TO === 'undefined') {
   throw new Error('EMAIL_TO not specified in .env file');
 }
@@ -34,24 +39,53 @@ if (typeof process.env.EMAIL_FROM === 'undefined') {
 }
 const from = process.env.EMAIL_FROM;
 
+/**
+ * If the data passed to the logger is an instance of Error, transform the stack trace into an array
+ * @param key
+ * @param value
+ */
+const replacer = (key: string, value: unknown) => {
+  if (value instanceof Error) {
+    return Object.getOwnPropertyNames(value).reduce((previousValue, currentValue) => {
+      if (currentValue === 'stack') {
+        return {
+          ...previousValue,
+          stack: value.stack?.split('\n').map(v => {
+            v = v.trim();
+            return v.substr(0, 3) === 'at ' ? v.slice(3) : v;
+          }),
+        };
+      } else {
+        return {
+          ...previousValue,
+          [currentValue]: value[currentValue as keyof Error],
+        };
+      }
+    }, {});
+  } else {
+    return value;
+  }
+};
+
 export const logger = winston.createLogger({
+  format: format.combine(
+    format.timestamp(),
+    format.json({ space: 2, replacer }),
+  ),
   transports: [
     new transports.Console({
-      format: format.combine(format.colorize()),
+      format: format.colorize(),
     }),
     new transports.File({
       filename: '/var/log/node-geo-location.log',
     }),
     new NodemailerTransport({
-      auth: {
-        pass: password,
-        user: username,
-      },
-      filter: ({ level, message, meta }) => level === 'error',
+      auth: { pass, user },
+      filter: ({ level }) => [ 'error', 'crit', 'alert', 'emerg' ].includes(level),
       from,
       host,
-      port: 587,
-      secure: false,
+      port,
+      secure: tls,
       tags: [ 'geoLocation' ],
       to,
     }),
