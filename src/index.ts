@@ -13,7 +13,7 @@ import { errorHandler } from './handlers/errorHandler';
 import { httpErrorHandler } from './handlers/httpErrorHandler';
 
 const corsOptions: cors.CorsOptions = {
-  allowedHeaders: [ 'Content-Type' ],
+  // allowedHeaders: [ 'Content-Type' ],
   exposedHeaders: [ 'Cache-Control', 'X-Total' ],
   // origin: '*',
   origin: [
