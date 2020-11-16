@@ -15,15 +15,23 @@ import { httpErrorHandler } from './handlers/httpErrorHandler';
 const corsOptions: cors.CorsOptions = {
   allowedHeaders: [ 'Content-Type' ],
   exposedHeaders: [ 'Cache-Control', 'X-Total' ],
+  // origin: '*',
   origin: [
-    /(?:.*\.)?qccareerschool\.com$/,
-    /(?:.*\.)?qcmakeupacademy\.com$/,
-    /(?:.*\.)?qceventplanning\.com$/,
-    /(?:.*\.)?qcdesignschool\.com$/,
-    /(?:.*\.)?doggroomingcourse\.com$/,
-    /(?:.*\.)?winghill\.com$/,
-    /(?:.*\.)?qcwellnessstudies\.com$/,
-    /(?:.*\.)?localhost(?::\d{1,5})?$/,
+    /\.qcmakeupacademy\.com$/,
+    /\.qceventplanning\.com$/,
+    /\.qcdesignschool\.com$/,
+    /\.doggroomingcourse\.com$/,
+    /\.qccareerschool\.com$/,
+    /\.winghill\.com$/,
+    /\.qcwellnessstudies\.com$/,
+    // /(?:.*\.)?qccareerschool\.com$/,
+    // /(?:.*\.)?qcmakeupacademy\.com$/,
+    // /(?:.*\.)?qceventplanning\.com$/,
+    // /(?:.*\.)?qcdesignschool\.com$/,
+    // /(?:.*\.)?doggroomingcourse\.com$/,
+    // /(?:.*\.)?winghill\.com$/,
+    // /(?:.*\.)?qcwellnessstudies\.com$/,
+  //   /(?:.*\.)?localhost(?::\d{1,5})?$/,
   ],
 };
 
@@ -45,7 +53,6 @@ router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
 app.use(cors(corsOptions));
-app.use((req, res, next) => { res.header('vary', 'Origin, Accept-Encoding'); next(); });
 app.use(helmet(helmetOptions));
 app.use(compression());
 app.use('/geoLocation', router);
