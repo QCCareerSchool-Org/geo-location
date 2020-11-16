@@ -29,8 +29,6 @@ const corsOptions: cors.CorsOptions = {
 
 // these are already done by the proxy
 const helmetOptions = {
-  hsts: false,
-  contentSecurityPolicy: false,
   referrerPolicy: false,
   noSniff: false,
   frameguard: false,
