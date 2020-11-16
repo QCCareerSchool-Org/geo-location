@@ -44,9 +44,9 @@ router.get('/ip', requestIp.mw(), geoLocationHandler);
 router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
-app.use(compression());
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
+app.use(compression());
 app.use('/geoLocation', router);
 app.use(httpErrorHandler);
 app.use(errorHandler);
