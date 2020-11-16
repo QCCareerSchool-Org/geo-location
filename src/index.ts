@@ -15,24 +15,7 @@ import { httpErrorHandler } from './handlers/httpErrorHandler';
 const corsOptions: cors.CorsOptions = {
   allowedHeaders: [ 'Content-Type' ],
   exposedHeaders: [ 'Cache-Control', 'X-Total' ],
-  origin: [
-    /^(.*\.)?qccareerschool\.com$/,
-    /^(.*\.)?qcmakeupacademy\.com$/,
-    /^(.*\.)?qceventplanning\.com$/,
-    /^(.*\.)?qcdesignschool\.com$/,
-    /^(.*\.)?doggroomingcourse\.com$/,
-    /^(.*\.)?winghill\.com$/,
-    /^(.*\.)?qcwellnessstudies\.com$/,
-    /^https:\/\/qccareerschool-com-.*\.now\.sh$/,
-    /http:\/\/(.*\.)localhost:3000/,
-    'http://localhost:3000',
-    'http://localhost:4200',
-    'http://localhost:8000',
-    'http://192.168.6.197:3000',
-    'https://blissful-hopper-b5c7db.netlify.com',
-    /www-qcwellnessstudies-com\.now\.sh$/,
-    /\.qccareerschool\.now\.sh$/,
-  ],
+  origin: '*',
 };
 
 const HTTP_PORT = 15002;
