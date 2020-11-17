@@ -9,7 +9,7 @@ import { GeoLocation, getLocation } from '../lib/getLocation';
  * @param res Express response
  */
 export const cssHandler = asyncWrapper(async (req, res) => {
-  const MAX_AGE = 14400; // four hours
+  const MAX_AGE = 300; // five mintutes
 
   if (typeof req.clientIp === 'undefined') {
     throw new HttpStatus.InternalServerError('req.clientIp is undefined. Missing middleware?');
@@ -18,7 +18,7 @@ export const cssHandler = asyncWrapper(async (req, res) => {
   try {
     const result = await getLocation(req.clientIp);
     res.setHeader('Content-Type', 'text/css');
-    res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // we rely on ip address so private cache only
+    res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // response depends on ip address, so private cache only
     res.send(prepareCSS(result, typeof req.query.amp === 'undefined'));
   } catch (err) {
     throw new HttpStatus.InternalServerError(err.message);
