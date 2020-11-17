@@ -47,8 +47,8 @@ router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
 app.use(cors(corsOptions));
-app.use(helmet(helmetOptions));
-app.use(compression());
+// app.use(helmet(helmetOptions));
+// app.use(compression());
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-for'] === '135.23.119.183' || req.headers['x-forwarded-for'] === '173.242.186.194') {
     logger.info(req.headers);
