@@ -49,13 +49,13 @@ const app: express.Express = express();
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 app.use(compression());
-app.use('/geoLocation', router);
-app.use(httpErrorHandler);
-app.use(errorHandler);
 app.use((req, res, next) => {
   logger.info(req.headers);
   next();
 });
+app.use('/geoLocation', router);
+app.use(httpErrorHandler);
+app.use(errorHandler);
 
 app.listen(HTTP_PORT, () => {
   logger.info(`Server running on port ${HTTP_PORT}`);
