@@ -12,7 +12,7 @@ export type Country = {
  * @param res Express response
  */
 export const countriesHandler = asyncWrapper(async (req, res) => {
-  const MAX_AGE = 86400; // one day
+  const MAX_AGE = 300; // five minutes
 
   const p = await pool;
   const connection = await p.getConnection();
@@ -23,7 +23,7 @@ export const countriesHandler = asyncWrapper(async (req, res) => {
       : 'SELECT code, name FROM countries WHERE ofac = 0 ORDER BY name';
     const countries: Country[] = await connection.query(sql, req.query.countryCode);
 
-    res.setHeader('Cache-Control', `public, max-age=${MAX_AGE}`); // one day
+    res.setHeader('Cache-Control', `public, max-age=${MAX_AGE}`);
     res.setHeader('X-Total', countries.length);
     res.send(countries);
   } finally {

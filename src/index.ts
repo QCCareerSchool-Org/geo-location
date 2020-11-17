@@ -13,27 +13,25 @@ import { errorHandler } from './handlers/errorHandler';
 import { httpErrorHandler } from './handlers/httpErrorHandler';
 
 const corsOptions: cors.CorsOptions = {
-  allowedHeaders: [ 'Content-Type' ],
-  exposedHeaders: [ 'Cache-Control', 'X-Total' ],
+  exposedHeaders: [ 'X-Total' ],
   origin: [
-    /^(.*\.)?qccareerschool\.com$/,
-    /^(.*\.)?qcmakeupacademy\.com$/,
-    /^(.*\.)?qceventplanning\.com$/,
-    /^(.*\.)?qcdesignschool\.com$/,
-    /^(.*\.)?doggroomingcourse\.com$/,
-    /^(.*\.)?winghill\.com$/,
-    /^(.*\.)?qcwellnessstudies\.com$/,
-    /^https:\/\/qccareerschool-com-.*\.now\.sh$/,
-    /http:\/\/(.*\.)localhost:3000/,
-    'http://localhost:3000',
-    'http://localhost:4200',
-    'http://localhost:8000',
-    'http://192.168.6.197:3000',
-    'https://blissful-hopper-b5c7db.netlify.com',
-    /www-qcwellnessstudies-com\.now\.sh$/,
-    /\.qccareerschool\.now\.sh$/,
+    /(?:.*\.)?qccareerschool\.com$/,
+    /(?:.*\.)?qcmakeupacademy\.com$/,
+    /(?:.*\.)?qceventplanning\.com$/,
+    /(?:.*\.)?qcdesignschool\.com$/,
+    /(?:.*\.)?doggroomingcourse\.com$/,
+    /(?:.*\.)?winghill\.com$/,
+    /(?:.*\.)?qcwellnessstudies\.com$/,
+    /(?:.*\.)?localhost(?::\d{1,5})?$/,
   ],
 };
+
+// these are already done by the proxy
+const helmetOptions = {
+  referrerPolicy: false, // already done in apache
+  noSniff: false, // already done in apache
+  frameguard: false, // already done in apache
+} as const;
 
 const HTTP_PORT = 15002;
 
@@ -44,9 +42,15 @@ router.get('/ip', requestIp.mw(), geoLocationHandler);
 router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
-app.use(compression());
-app.use(helmet());
 app.use(cors(corsOptions));
+// app.use(helmet(helmetOptions));
+// app.use(compression());
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-for'] === '135.23.119.183' || req.headers['x-forwarded-for'] === '173.242.186.194') {
+    logger.info(req.headers);
+  }
+  next();
+});
 app.use('/geoLocation', router);
 app.use(httpErrorHandler);
 app.use(errorHandler);
