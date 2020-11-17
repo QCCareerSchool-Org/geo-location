@@ -52,6 +52,10 @@ app.use(compression());
 app.use('/geoLocation', router);
 app.use(httpErrorHandler);
 app.use(errorHandler);
+app.use((req, res, next) => {
+  logger.debug(req.headers);
+  next();
+});
 
 app.listen(HTTP_PORT, () => {
   logger.info(`Server running on port ${HTTP_PORT}`);
