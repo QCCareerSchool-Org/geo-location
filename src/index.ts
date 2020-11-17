@@ -53,7 +53,7 @@ app.use('/geoLocation', router);
 app.use(httpErrorHandler);
 app.use(errorHandler);
 app.use((req, res, next) => {
-  logger.debug(req.headers);
+  logger.info(req.headers);
   next();
 });
 
