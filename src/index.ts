@@ -13,10 +13,7 @@ import { errorHandler } from './handlers/errorHandler';
 import { httpErrorHandler } from './handlers/httpErrorHandler';
 
 const corsOptions: cors.CorsOptions = {
-  // allowedHeaders: [ 'Content-Type' ],
-  // exposedHeaders: [ 'Cache-Control', 'X-Total' ],
   exposedHeaders: [ 'X-Total' ],
-  // origin: '*',
   origin: [
     /(?:.*\.)?qccareerschool\.com$/,
     /(?:.*\.)?qcmakeupacademy\.com$/,
@@ -31,10 +28,9 @@ const corsOptions: cors.CorsOptions = {
 
 // these are already done by the proxy
 const helmetOptions = {
-  contentSecurityPolicy: false,
-  referrerPolicy: false,
-  noSniff: false,
-  frameguard: false,
+  referrerPolicy: false, // already done in apache
+  noSniff: false, // already done in apache
+  frameguard: false, // already done in apache
 } as const;
 
 const HTTP_PORT = 15002;
@@ -47,8 +43,8 @@ router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
 app.use(cors(corsOptions));
-app.use(helmet(helmetOptions));
-app.use(compression());
+// app.use(helmet(helmetOptions));
+// app.use(compression());
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-for'] === '135.23.119.183' || req.headers['x-forwarded-for'] === '173.242.186.194') {
     logger.info(req.headers);

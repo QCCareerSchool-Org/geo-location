@@ -15,7 +15,7 @@ export type Province = {
  * @param res Express response
  */
 export const provincesHandler = asyncWrapper(async (req, res) => {
-  const MAX_AGE = 86400; // one day
+  const MAX_AGE = 300; // five minutes
 
   if (typeof req.query.countryCode === 'undefined') {
     throw new HttpStatus.BadRequest('"countryCode" is required');
@@ -28,7 +28,7 @@ export const provincesHandler = asyncWrapper(async (req, res) => {
     const sql = 'SELECT code, name, display FROM provinces WHERE country_code = ? order by `order`';
     const provinces: Province[] = await connection.query(sql, req.query.countryCode);
 
-    res.setHeader('Cache-Control', `public, max-age=${MAX_AGE}`); // one day
+    res.setHeader('Cache-Control', `public, max-age=${MAX_AGE}`);
     res.setHeader('X-Total', provinces.length);
     res.send(provinces);
 
