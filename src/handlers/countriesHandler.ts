@@ -13,10 +13,7 @@ export type Country = {
  */
 export const countriesHandler = asyncWrapper(async (req, res) => {
   const MAX_AGE = 300; // five minutes
-
-  const p = await pool;
-  const connection = await p.getConnection();
-
+  const connection = await (await pool).getConnection();
   try {
     const sql = req.query.ofac !== '0'
       ? 'SELECT code, name FROM countries ORDER BY name'
@@ -27,6 +24,6 @@ export const countriesHandler = asyncWrapper(async (req, res) => {
     res.setHeader('X-Total', countries.length);
     res.send(countries);
   } finally {
-    p.releaseConnection(connection);
+    connection.release();
   }
 });
