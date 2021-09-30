@@ -22,6 +22,7 @@ const corsOptions: cors.CorsOptions = {
     /(?:.*\.)?doggroomingcourse\.com$/,
     /(?:.*\.)?winghill\.com$/,
     /(?:.*\.)?qcwellnessstudies\.com$/,
+    /(?:.*-)?qccareerschool\.vercel\.app$/,
     /(?:.*\.)?localhost(?::\d{1,5})?$/,
   ],
 };

@@ -21,9 +21,7 @@ export const provincesHandler = asyncWrapper(async (req, res) => {
     throw new HttpStatus.BadRequest('"countryCode" is required');
   }
 
-  const p = await pool;
-  const connection = await p.getConnection();
-
+  const connection = await (await pool).getConnection();
   try {
     const sql = 'SELECT code, name, display FROM provinces WHERE country_code = ? order by `order`';
     const provinces: Province[] = await connection.query(sql, req.query.countryCode);
@@ -33,6 +31,6 @@ export const provincesHandler = asyncWrapper(async (req, res) => {
     res.send(provinces);
 
   } finally {
-    p.releaseConnection(connection);
+    connection.release();
   }
 });
