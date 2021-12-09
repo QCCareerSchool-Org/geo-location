@@ -8,16 +8,20 @@ import { getLocation } from '../lib/getLocation';
  * @param req Express request
  * @param res Express response
  */
-export const geoLocationHandler = asyncWrapper(async (req, res) => {
+export const clientGeoLocationHandler = asyncWrapper(async (req, res) => {
   const MAX_AGE = 300; // five minutes
 
-  if (typeof req.clientIp === 'undefined') {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: 'req.clientIp is undefined. Missing middleware?' });
+  if (typeof req.query.q === 'undefined') {
+    res.status(HttpStatus.BAD_REQUEST).send({ message: 'req.query.q is undefined' });
+    return;
+  }
+  if (typeof req.query.q !== 'string') {
+    res.status(HttpStatus.BAD_REQUEST).send({ message: 'invalid value for req.query.q' });
     return;
   }
 
   try {
-    const result = await getLocation(req.clientIp);
+    const result = await getLocation(req.query.q);
     res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // response depends on ip address, so private cache only
     res.send(result);
   } catch(err) {

@@ -11,6 +11,7 @@ import { countriesHandler } from './handlers/countriesHandler';
 import { cssHandler } from './handlers/cssHandler';
 import { errorHandler } from './handlers/errorHandler';
 import { httpErrorHandler } from './handlers/httpErrorHandler';
+import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler';
 
 const corsOptions: cors.CorsOptions = {
   exposedHeaders: [ 'X-Total' ],
@@ -40,13 +41,14 @@ const HTTP_PORT = 15002;
 const router = express.Router();
 router.get('/provinces', provincesHandler);
 router.get('/countries', countriesHandler);
+router.get('/clientIp', clientGeoLocationHandler);
 router.get('/ip', requestIp.mw(), geoLocationHandler);
 router.get('/css', requestIp.mw(), cssHandler);
 
 const app: express.Express = express();
 app.use(cors(corsOptions));
-// app.use(helmet(helmetOptions));
-// app.use(compression());
+app.use(helmet(helmetOptions));
+app.use(compression());
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-for'] === '135.23.119.183' || req.headers['x-forwarded-for'] === '173.242.186.194') {
     logger.info(req.headers);

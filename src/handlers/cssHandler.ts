@@ -21,7 +21,10 @@ export const cssHandler = asyncWrapper(async (req, res) => {
     res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // response depends on ip address, so private cache only
     res.send(prepareCSS(result, typeof req.query.amp === 'undefined'));
   } catch (err) {
-    throw new HttpStatus.InternalServerError(err.message);
+    if (err instanceof Error) {
+      throw new HttpStatus.InternalServerError(err.message);
+    }
+    throw new HttpStatus.InternalServerError(typeof err === 'string' ? err : 'unknown error');
   }
 });
 
