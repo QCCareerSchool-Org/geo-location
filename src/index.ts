@@ -4,28 +4,28 @@ import express from 'express';
 import helmet from 'helmet';
 import requestIp from 'request-ip';
 
-import { logger } from './logger';
-import { geoLocationHandler } from './handlers/geoLocationHandler';
-import { provincesHandler } from './handlers/provincesHandler';
+import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler';
 import { countriesHandler } from './handlers/countriesHandler';
 import { cssHandler } from './handlers/cssHandler';
 import { errorHandler } from './handlers/errorHandler';
+import { geoLocationHandler } from './handlers/geoLocationHandler';
 import { httpErrorHandler } from './handlers/httpErrorHandler';
-import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler';
+import { provincesHandler } from './handlers/provincesHandler';
+import { logger } from './logger';
 
 const corsOptions: cors.CorsOptions = {
   exposedHeaders: [ 'X-Total' ],
   origin: [
-    /(?:.*\.)?qccareerschool\.com$/,
-    /(?:.*\.)?qcmakeupacademy\.com$/,
-    /(?:.*\.)?qceventplanning\.com$/,
-    /(?:.*\.)?qcdesignschool\.com$/,
-    /(?:.*\.)?doggroomingcourse\.com$/,
-    /(?:.*\.)?winghill\.com$/,
-    /(?:.*\.)?qcwellnessstudies\.com$/,
-    /(?:.*\.)?qcpetstudies\.com$/,
-    /(?:.*-)?qccareerschool\.vercel\.app$/,
-    /(?:.*\.)?localhost(?::\d{1,5})?$/,
+    /(?:.*\.)?qccareerschool\.com$/u,
+    /(?:.*\.)?qcmakeupacademy\.com$/u,
+    /(?:.*\.)?qceventplanning\.com$/u,
+    /(?:.*\.)?qcdesignschool\.com$/u,
+    /(?:.*\.)?doggroomingcourse\.com$/u,
+    /(?:.*\.)?winghill\.com$/u,
+    /(?:.*\.)?qcwellnessstudies\.com$/u,
+    /(?:.*\.)?qcpetstudies\.com$/u,
+    /(?:.*-)?qccareerschool\.vercel\.app$/u,
+    /(?:.*\.)?localhost(?::\d{1,5})?$/u,
   ],
 };
 

@@ -6,7 +6,7 @@ export type GeoLocation = {
   countryName: string;
   provinceCode: string | null;
   provinceName: string | null;
-}
+};
 
 export const getLocation = async (ip?: string): Promise<GeoLocation> => {
   // prepare the result with default values

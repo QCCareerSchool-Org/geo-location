@@ -7,7 +7,7 @@ export type Province = {
   code: string;
   name: string;
   display: boolean;
-}
+};
 
 /**
  * Express handler that returns an array of Province objects for a particular country
