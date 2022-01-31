@@ -4,7 +4,7 @@ import { pool } from '../pool';
 export type Country = {
   code: string;
   name: string;
-}
+};
 
 /**
  * Express handler that returns an array of Country objects

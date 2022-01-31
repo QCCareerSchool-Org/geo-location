@@ -24,7 +24,7 @@ export const clientGeoLocationHandler = asyncWrapper(async (req, res) => {
     const result = await getLocation(req.query.q);
     res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // response depends on ip address, so private cache only
     res.send(result);
-  } catch(err) {
+  } catch (err) {
     if (err instanceof Error) {
       throw new HttpStatus.InternalServerError(err.message);
     }

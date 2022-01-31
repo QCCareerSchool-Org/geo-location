@@ -22,7 +22,7 @@ const host = process.env.EMAIL_HOST;
 if (typeof process.env.EMAIL_TLS === 'undefined') {
   throw new Error('EMAIL_TLS not specified in .env file');
 }
-const tls = process.env.EMAIL_TLS === 'true' ? true : false;
+const tls = process.env.EMAIL_TLS === 'true';
 
 if (typeof process.env.EMAIL_PORT === 'undefined') {
   throw new Error('EMAIL_PORT not specified in .env file');
@@ -55,16 +55,15 @@ const replacer = (key: string, value: unknown) => {
             return v.substr(0, 3) === 'at ' ? v.slice(3) : v;
           }),
         };
-      } else {
-        return {
-          ...previousValue,
-          [currentValue]: value[currentValue as keyof Error],
-        };
       }
+      return {
+        ...previousValue,
+        [currentValue]: value[currentValue as keyof Error],
+      };
+
     }, {});
-  } else {
-    return value;
   }
+  return value;
 };
 
 export const logger = winston.createLogger({

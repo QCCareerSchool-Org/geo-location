@@ -55,7 +55,7 @@ export const prepareCSS = (geoLocation: GeoLocation, important = true): string =
 .nz-only{display:none${imp}}
 .xx-only{display:none${imp}}
 .ontario-only{display:none${imp}}`;
-  } else if ([ 'GB', 'IM', 'GG', 'JE' ].indexOf(geoLocation.countryCode) !== -1) {
+  } else if ([ 'GB', 'IM', 'GG', 'JE' ].includes(geoLocation.countryCode)) {
     css += `
 .no-gb{display:none${imp}}
 .ca-only{display:none${imp}}
@@ -64,7 +64,7 @@ export const prepareCSS = (geoLocation: GeoLocation, important = true): string =
 .nz-only{display:none${imp}}
 .xx-only{display:none${imp}}
 .ontario-only{display:none${imp}}`;
-  } else if ([ 'AU', 'CX', 'CC' ].indexOf(geoLocation.countryCode) !== -1) {
+  } else if ([ 'AU', 'CX', 'CC' ].includes(geoLocation.countryCode)) {
     css += `
 .no-au{display:none${imp}}
 .ca-only{display:none${imp}}
@@ -73,7 +73,7 @@ export const prepareCSS = (geoLocation: GeoLocation, important = true): string =
 .nz-only{display:none${imp}}
 .xx-only{display:none${imp}}
 .ontario-only{display:none${imp}}`;
-  } else if ([ 'NZ', 'PN' ].indexOf(geoLocation.countryCode) !== -1) {
+  } else if ([ 'NZ', 'PN' ].includes(geoLocation.countryCode)) {
     css += `
 .no-nz{display:none${imp}}
 .ca-only{display:none${imp}}
