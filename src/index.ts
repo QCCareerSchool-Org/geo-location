@@ -1,7 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
-import helmet from 'helmet';
+import helmet, { HelmetOptions } from 'helmet';
 import requestIp from 'request-ip';
 
 import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler';
@@ -30,10 +30,11 @@ const corsOptions: cors.CorsOptions = {
 };
 
 // these are already done by the proxy
-const helmetOptions = {
+const helmetOptions: HelmetOptions = {
   referrerPolicy: false, // already done in apache
   noSniff: false, // already done in apache
   frameguard: false, // already done in apache
+  crossOriginResourcePolicy: false,
 } as const;
 
 const HTTP_PORT = 15002;
