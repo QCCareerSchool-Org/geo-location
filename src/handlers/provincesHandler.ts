@@ -1,8 +1,8 @@
 import * as HttpStatus from '@qccareerschool/http-status';
+import type { RequestHandler } from 'express';
 import type { RowDataPacket } from 'mysql2';
 
 import { pool } from '../pool';
-import { RequestHandler } from 'express';
 
 export interface Province {
   code: string;
