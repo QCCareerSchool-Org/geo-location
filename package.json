@@ -19,6 +19,7 @@
     "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/helmet": "^0.0.48",
     "@types/node": "^24.12.0",
     "@types/nodemailer": "^7.0.11",
     "@types/request-ip": "^0.0.41",
