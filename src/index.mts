@@ -5,14 +5,14 @@ import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import requestIp from 'request-ip';
 
-import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler.mjs';
-import { countriesHandler } from './handlers/countriesHandler.mjs';
-import { cssHandler } from './handlers/cssHandler.mjs';
-import { errorHandler } from './handlers/errorHandler.mjs';
-import { geoLocationHandler } from './handlers/geoLocationHandler.mjs';
-import { httpErrorHandler } from './handlers/httpErrorHandler.mjs';
-import { provincesHandler } from './handlers/provincesHandler.mjs';
-import { logger } from './logger.mjs';
+import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler.mts';
+import { countriesHandler } from './handlers/countriesHandler.mts';
+import { cssHandler } from './handlers/cssHandler.mts';
+import { errorHandler } from './handlers/errorHandler.mts';
+import { geoLocationHandler } from './handlers/geoLocationHandler.mts';
+import { httpErrorHandler } from './handlers/httpErrorHandler.mts';
+import { provincesHandler } from './handlers/provincesHandler.mts';
+import { logger } from './logger.mts';
 
 const corsOptions: cors.CorsOptions = {
   exposedHeaders: [ 'X-Total' ],

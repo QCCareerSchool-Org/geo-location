@@ -1,7 +1,7 @@
 import * as HttpStatus from '@qccareerschool/http-status';
 import type { RequestHandler } from 'express';
 
-import { getLocation } from '../lib/getLocation.mjs';
+import { getLocation } from '../lib/getLocation.mts';
 
 const MAX_AGE = 300; // five minutes
 
