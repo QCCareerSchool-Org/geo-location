@@ -1,13 +1,17 @@
 {
-  "functions": {
-    "src/index.mts": {
-      "includeFiles": "maxmind/**"
-    }
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.mts"
-    }
-  ]
-}
+   "version": 2,
+   "builds": [
+     {
+       "src": "dist/index.mjs",
+       "use": "@vercel/node"
+     }
+   ],
+   "routes": [
+     {
+       "src": "/(.*)",
+       "dest": "dist/index.mjs"
+     }
+   ],
+   "buildCommand": "npm run build",
+   "outputDirectory": "dist"
+ }
