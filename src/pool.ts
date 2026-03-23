@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 import type { PoolOptions } from 'mysql2/promise';
 import mysql from 'mysql2/promise';
-import fs from 'node:fs';
-import path from 'node:path';
 
 dotenv.config();
 
@@ -28,13 +26,13 @@ if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
 if (process.env.DB_SSL === 'true') {
   options.ssl = {};
   if (typeof process.env.DB_CLIENT_CERT !== 'undefined') {
-    options.ssl.cert = fs.readFileSync(path.join(__dirname, '..', process.env.DB_CLIENT_CERT));
+    options.ssl.cert = Buffer.from(process.env.DB_CLIENT_CERT, 'base64').toString('utf8');
   }
   if (typeof process.env.DB_CLIENT_KEY !== 'undefined') {
-    options.ssl.key = fs.readFileSync(path.join(__dirname, '..', process.env.DB_CLIENT_KEY));
+    options.ssl.key = Buffer.from(process.env.DB_CLIENT_KEY, 'base64').toString('utf8');
   }
   if (typeof process.env.DB_SERVER_CA !== 'undefined') {
-    options.ssl.ca = fs.readFileSync(path.join(__dirname, '..', process.env.DB_SERVER_CA));
+    options.ssl.ca = Buffer.from(process.env.DB_SERVER_CA, 'base64').toString('utf8');
   }
 }
 
