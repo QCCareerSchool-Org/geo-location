@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "dest/index.mjs",
+      "src": "src/index.mts",
       "use": "@vercel/node",
       "config": {
         "includeFiles": ["maxmind/**"]
@@ -10,6 +10,6 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "dest/index.mjs" }
+    { "src": "/(.*)", "dest": "src/index.mts" }
   ]
 }
