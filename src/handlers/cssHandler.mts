@@ -1,8 +1,8 @@
 import * as HttpStatus from '@qccareerschool/http-status';
 import type { RequestHandler } from 'express';
 
-import type { GeoLocation } from '../lib/getLocation.mts';
-import { getLocation } from '../lib/getLocation.mts';
+import type { GeoLocation } from '../lib/getLocation.mjs';
+import { getLocation } from '../lib/getLocation.mjs';
 
 const MAX_AGE = 300; // five mintutes
 
