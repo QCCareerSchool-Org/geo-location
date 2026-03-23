@@ -45,7 +45,7 @@ router.get('/clientIp', clientGeoLocationHandler);
 router.get('/ip', requestIp.mw(), geoLocationHandler);
 router.get('/css', requestIp.mw(), cssHandler);
 
-const app: express.Express = express();
+const app = express();
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 app.use(compression());

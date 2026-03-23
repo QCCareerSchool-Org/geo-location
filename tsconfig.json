@@ -41,7 +41,8 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
 
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [ "node_modules" ]
 }
