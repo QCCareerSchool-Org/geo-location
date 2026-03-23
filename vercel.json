@@ -1,19 +1,11 @@
 {
-   "version": 2,
-   "builds": [
-     {
-       "src": "src/index.mts",
-       "use": "@vercel/node",
-       "config": {
-        "includeFiles": ["src/**", "maxmind/**"]
-       }
-
-     }
-   ],
-   "routes": [
-     {
-       "src": "/(.*)",
-       "dest": "src/index.mts"
-     }
-   ]
- }
+  "version": 2,
+  "functions": {
+    "src/index.mjs": {
+      "includeFiles": "maxmind/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "src/index.mjs" }
+  ]
+}
