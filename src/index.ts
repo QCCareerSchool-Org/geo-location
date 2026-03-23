@@ -38,8 +38,6 @@ const helmetOptions: HelmetOptions = {
   crossOriginResourcePolicy: false,
 } as const;
 
-const HTTP_PORT = 15002;
-
 const router = express.Router();
 router.get('/provinces', provincesHandler);
 router.get('/countries', countriesHandler);
@@ -61,6 +59,4 @@ app.use('/geoLocation', router);
 app.use(httpErrorHandler);
 app.use(errorHandler);
 
-app.listen(HTTP_PORT, () => {
-  logger.info(`Server running on port ${HTTP_PORT}`);
-});
+export default app;
