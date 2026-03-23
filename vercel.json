@@ -9,7 +9,7 @@
       }
     }
   ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "src/index.mts" }
+  "routes": [
+    { "src": "/(.*)", "dest": "src/index.mts" }
   ]
 }
