@@ -1,10 +1,9 @@
-import maxmind, { CityResponse, Reader } from 'maxmind';
+import type { CityResponse, Reader } from 'maxmind';
+import maxmind from 'maxmind';
 
-let reader: Reader<CityResponse>;
+let reader: Reader<CityResponse> | undefined = undefined;
 
 export const getReader = async (): Promise<Reader<CityResponse>> => {
-  if (!reader) {
-    reader = await maxmind.open('/usr/share/GeoIP/GeoLite2-City.mmdb');
-  }
+  reader ??= await maxmind.open('/usr/share/GeoIP/GeoLite2-City.mmdb');
   return reader;
 };

@@ -1,7 +1,10 @@
 import * as HttpStatus from '@qccareerschool/http-status';
 
 import { asyncWrapper } from '../lib/asyncWrapper';
-import { GeoLocation, getLocation } from '../lib/getLocation';
+import type { GeoLocation } from '../lib/getLocation';
+import { getLocation } from '../lib/getLocation';
+
+const MAX_AGE = 300; // five mintutes
 
 /**
  * Express handler that returns a customized css stylesheet depending on the ip address of the visitor
@@ -9,8 +12,6 @@ import { GeoLocation, getLocation } from '../lib/getLocation';
  * @param res Express response
  */
 export const cssHandler = asyncWrapper(async (req, res) => {
-  const MAX_AGE = 300; // five mintutes
-
   if (typeof req.clientIp === 'undefined') {
     throw new HttpStatus.InternalServerError('req.clientIp is undefined. Missing middleware?');
   }
