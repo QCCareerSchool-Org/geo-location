@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.ts",
+      "src": "src/index.mts",
       "use": "@vercel/node",
       "config": {
         "includeFiles": ["maxmind/**"]
@@ -10,6 +10,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "src/index.ts" }
+    { "source": "/(.*)", "destination": "src/index.mts" }
   ]
 }
