@@ -4,13 +4,13 @@ import express from 'express';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 
-import { countriesHandler } from './handlers/countriesHandler.mts';
-import { cssHandler } from './handlers/cssHandler.mts';
-import { errorHandler } from './handlers/errorHandler.mts';
-import { geoLocationHandler } from './handlers/geoLocationHandler.mts';
-import { httpErrorHandler } from './handlers/httpErrorHandler.mts';
-import { provincesHandler } from './handlers/provincesHandler.mts';
-import { logger } from './logger.mts';
+import { countriesHandler } from './handlers/countriesHandler';
+import { cssHandler } from './handlers/cssHandler';
+import { errorHandler } from './handlers/errorHandler';
+import { geoLocationHandler } from './handlers/geoLocationHandler';
+import { httpErrorHandler } from './handlers/httpErrorHandler';
+import { provincesHandler } from './handlers/provincesHandler';
+import { logger } from './logger';
 
 const corsOptions: cors.CorsOptions = {
   exposedHeaders: [ 'X-Total' ],

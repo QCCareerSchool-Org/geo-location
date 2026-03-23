@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { logger } from '../logger.mts';
+import { logger } from '../logger';
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction): void => {
   logger.error(err);

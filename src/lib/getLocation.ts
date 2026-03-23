@@ -1,5 +1,5 @@
-import type { GeoLocation } from '../domain/geoLocation.mts';
-import { defaultLocation } from '../domain/geoLocation.mts';
+import type { GeoLocation } from '../domain/geoLocation';
+import { defaultLocation } from '../domain/geoLocation';
 
 type Header = string | string[] | undefined;
 

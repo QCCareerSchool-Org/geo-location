@@ -1,7 +1,7 @@
 import * as HttpStatus from '@qccareerschool/http-status';
 import type { NextFunction, Request, Response } from 'express';
 
-import { logger } from '../logger.mts';
+import { logger } from '../logger';
 
 export const httpErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction): void => {
   if (!res.headersSent) {

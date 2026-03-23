@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { getLocation } from '../lib/getLocation.mts';
+import { getLocation } from '../lib/getLocation';
 
 const MAX_AGE = 300; // five minutes
 

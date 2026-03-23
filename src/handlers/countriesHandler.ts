@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 import type { RowDataPacket } from 'mysql2';
 
-import { pool } from '../pool.mts';
+import { pool } from '../pool';
 
 export interface Country {
   code: string;
