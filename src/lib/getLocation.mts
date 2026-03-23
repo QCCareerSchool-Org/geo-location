@@ -1,5 +1,5 @@
-import { getReader } from './getReader.mjs';
-import { secureIp } from './secureIp.mjs';
+import { getReader } from './getReader.mts';
+import { secureIp } from './secureIp.mts';
 
 export interface GeoLocation {
   countryCode: string;
