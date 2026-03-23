@@ -1,11 +1,11 @@
 {
   "version": 2,
   "functions": {
-    "src/index.mjs": {
+    "src/index.mts": {
       "includeFiles": "maxmind/**"
     }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": "src/index.mjs" }
+    { "source": "/(.*)", "destination": "src/index.mts" }
   ]
 }
