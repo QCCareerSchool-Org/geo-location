@@ -1,7 +1,7 @@
 import * as HttpStatus from '@qccareerschool/http-status';
 
-import { asyncWrapper } from '../lib/asyncWrapper';
 import { getLocation } from '../lib/getLocation';
+import { RequestHandler } from 'express';
 
 const MAX_AGE = 300; // five minutes
 
@@ -10,7 +10,7 @@ const MAX_AGE = 300; // five minutes
  * @param req Express request
  * @param res Express response
  */
-export const clientGeoLocationHandler = asyncWrapper(async (req, res) => {
+export const clientGeoLocationHandler: RequestHandler = async (req, res) => {
   if (typeof req.query.q === 'undefined') {
     res.status(HttpStatus.BAD_REQUEST).send({ message: 'req.query.q is undefined' });
     return;
@@ -30,4 +30,4 @@ export const clientGeoLocationHandler = asyncWrapper(async (req, res) => {
     }
     throw new HttpStatus.InternalServerError(typeof err === 'string' ? err : 'unknown error');
   }
-});
+};

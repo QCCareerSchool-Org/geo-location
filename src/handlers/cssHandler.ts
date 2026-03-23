@@ -1,8 +1,8 @@
 import * as HttpStatus from '@qccareerschool/http-status';
 
-import { asyncWrapper } from '../lib/asyncWrapper';
 import type { GeoLocation } from '../lib/getLocation';
 import { getLocation } from '../lib/getLocation';
+import { RequestHandler } from 'express';
 
 const MAX_AGE = 300; // five mintutes
 
@@ -11,7 +11,7 @@ const MAX_AGE = 300; // five mintutes
  * @param req Express request
  * @param res Express response
  */
-export const cssHandler = asyncWrapper(async (req, res) => {
+export const cssHandler: RequestHandler = async (req, res) => {
   if (typeof req.clientIp === 'undefined') {
     throw new HttpStatus.InternalServerError('req.clientIp is undefined. Missing middleware?');
   }
@@ -27,7 +27,7 @@ export const cssHandler = asyncWrapper(async (req, res) => {
     }
     throw new HttpStatus.InternalServerError(typeof err === 'string' ? err : 'unknown error');
   }
-});
+};
 
 export const prepareCSS = (geoLocation: GeoLocation, important = true): string => {
   const imp = important ? '!important' : '';
