@@ -1,5 +1,5 @@
-import { getReader } from './getReader';
-import { secureIp } from './secureIp';
+import { getReader } from './getReader.mjs';
+import { secureIp } from './secureIp.mjs';
 
 export interface GeoLocation {
   countryCode: string;
@@ -41,9 +41,10 @@ export const getLocation = async (ip?: string): Promise<GeoLocation> => {
       provinceCode: null,
       provinceName: null,
     };
-    if (typeof response.subdivisions !== 'undefined') {
-      result.provinceCode = response.subdivisions[0].iso_code;
-      result.provinceName = response.subdivisions[0].names.en;
+    const subdivisions = response.subdivisions?.[0];
+    if (subdivisions) {
+      result.provinceCode = subdivisions.iso_code;
+      result.provinceName = subdivisions.names.en;
     } else {
       if (result.countryCode === 'CA') {
         result.provinceCode = 'ON';

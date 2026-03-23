@@ -1,7 +1,15 @@
 {
-  "functions": {
-    "src/index.ts": {
-      "includeFiles": "maxmind/**"
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["maxmind/**"]
+      }
     }
-  }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "src/index.ts" }
+  ]
 }
