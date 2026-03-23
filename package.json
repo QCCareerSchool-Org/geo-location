@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "echo \"BUILDING!\" && node dist/index.mjs",
-    "build": "tsc",
+    "start": "node dist/index.mjs",
+    "build": "echo \"BUILDING!\" && tsc",
     "lint": "eslint src/**"
   },
   "author": "Dave Welsh",
