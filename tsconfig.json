@@ -43,6 +43,8 @@
     "skipLibCheck": true,
 
     "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": [ "src", "eslint.config.mjs" ],
   "exclude": [ "node_modules" ]

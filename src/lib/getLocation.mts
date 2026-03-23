@@ -1,5 +1,5 @@
-import type { GeoLocation } from '../domain/geoLocation.mjs';
-import { defaultLocation } from '../domain/geoLocation.mjs';
+import type { GeoLocation } from '../domain/geoLocation.mts';
+import { defaultLocation } from '../domain/geoLocation.mts';
 
 type Header = string | string[] | undefined;
 

@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 
-import type { GeoLocation } from '../domain/geoLocation.mjs';
-import { getLocation } from '../lib/getLocation.mjs';
+import type { GeoLocation } from '../domain/geoLocation.mts';
+import { getLocation } from '../lib/getLocation.mts';
 
 const MAX_AGE = 300; // five mintutes
 
