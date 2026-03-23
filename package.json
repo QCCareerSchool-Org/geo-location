@@ -27,7 +27,7 @@
     "eslint-plugin-import": "^2.32.0",
     "jiti": "^2.6.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript-eslint": "^8.57.2"
   },
   "dependencies": {
     "@qccareerschool/http-status": "^2.1.1",
@@ -37,10 +37,8 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "helmet": "^8.1.0",
-    "maxmind": "^5.0.5",
     "mysql2": "^3.20.0",
     "nodemailer": "^8.0.3",
-    "request-ip": "^3.3.0",
     "winston": "^3.19.0"
   }
 }

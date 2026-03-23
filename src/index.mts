@@ -3,7 +3,6 @@ import cors from 'cors';
 import express from 'express';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
-import requestIp from 'request-ip';
 
 import { countriesHandler } from './handlers/countriesHandler.mjs';
 import { cssHandler } from './handlers/cssHandler.mjs';
@@ -40,8 +39,8 @@ const helmetOptions: HelmetOptions = {
 const router = express.Router();
 router.get('/provinces', provincesHandler);
 router.get('/countries', countriesHandler);
-router.get('/ip', requestIp.mw(), geoLocationHandler);
-router.get('/css', requestIp.mw(), cssHandler);
+router.get('/ip', geoLocationHandler);
+router.get('/css', cssHandler);
 
 const app = express();
 app.use(cors(corsOptions));
