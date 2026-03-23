@@ -5,7 +5,7 @@
        "src": "src/index.mts",
        "use": "@vercel/node",
        "config": {
-        "includeFiles": ["maxmind/**"]
+        "includeFiles": ["src/**", "maxmind/**"]
        }
 
      }
