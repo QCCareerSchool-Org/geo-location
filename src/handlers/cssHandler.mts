@@ -1,7 +1,6 @@
-import * as HttpStatus from '@qccareerschool/http-status';
 import type { RequestHandler } from 'express';
 
-import type { GeoLocation } from '../lib/getLocation.mjs';
+import type { GeoLocation } from '../domain/geoLocation.mjs';
 import { getLocation } from '../lib/getLocation.mjs';
 
 const MAX_AGE = 300; // five mintutes
@@ -11,22 +10,11 @@ const MAX_AGE = 300; // five mintutes
  * @param req Express request
  * @param res Express response
  */
-export const cssHandler: RequestHandler = async (req, res) => {
-  if (typeof req.clientIp === 'undefined') {
-    throw new HttpStatus.InternalServerError('req.clientIp is undefined. Missing middleware?');
-  }
-
-  try {
-    const result = await getLocation(req.clientIp);
-    res.setHeader('Content-Type', 'text/css');
-    res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // response depends on ip address, so private cache only
-    res.send(prepareCSS(result, typeof req.query.amp === 'undefined'));
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new HttpStatus.InternalServerError(err.message);
-    }
-    throw new HttpStatus.InternalServerError(typeof err === 'string' ? err : 'unknown error');
-  }
+export const cssHandler: RequestHandler = (req, res) => {
+  const result = getLocation(req.headers['x-vercel-ip-country'], req.headers['x-vercel-ip-country-region']);
+  res.setHeader('Content-Type', 'text/css');
+  res.setHeader('Cache-Control', `private, max-age=${MAX_AGE}`); // response depends on ip address, so private cache only
+  res.send(prepareCSS(result, typeof req.query.amp === 'undefined'));
 };
 
 export const prepareCSS = (geoLocation: GeoLocation, important = true): string => {

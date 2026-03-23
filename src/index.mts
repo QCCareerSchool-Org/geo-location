@@ -5,7 +5,6 @@ import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 import requestIp from 'request-ip';
 
-import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler.mjs';
 import { countriesHandler } from './handlers/countriesHandler.mjs';
 import { cssHandler } from './handlers/cssHandler.mjs';
 import { errorHandler } from './handlers/errorHandler.mjs';
@@ -41,7 +40,6 @@ const helmetOptions: HelmetOptions = {
 const router = express.Router();
 router.get('/provinces', provincesHandler);
 router.get('/countries', countriesHandler);
-router.get('/clientIp', clientGeoLocationHandler);
 router.get('/ip', requestIp.mw(), geoLocationHandler);
 router.get('/css', requestIp.mw(), cssHandler);
 
