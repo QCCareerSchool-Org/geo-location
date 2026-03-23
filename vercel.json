@@ -10,6 +10,6 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "src/index.mts" }
+    { "src": "/(.*)", "dest": "dest/index.mjs" }
   ]
 }
