@@ -16,7 +16,7 @@ const MAX_AGE = 300; // five minutes
  * @param res Express response
  */
 export const countriesHandler = asyncWrapper(async (req, res) => {
-  await using connection = await pool.getConnection();
+  const connection = await pool.getConnection();
   try {
     const sql = req.query.ofac !== '0'
       ? 'SELECT code, name FROM countries ORDER BY name'
