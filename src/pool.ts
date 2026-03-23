@@ -1,14 +1,17 @@
-import fs from 'fs';
 import dotenv from 'dotenv';
-import mysql from 'promise-mysql';
+import fs from 'fs';
+import type { PoolOptions } from 'mysql2/promise';
+import mysql from 'mysql2/promise';
 
 dotenv.config();
 
-const DEFAULT_CONNECTION_LIMIT = 100;
+const DEFAULT_CONNECTION_LIMIT = 20;
 
-const options: mysql.PoolConfig = {
+const options: PoolOptions = {
   charset: process.env.DB_CHARSET,
-  connectionLimit: typeof process.env.DB_CONNECTION_LIMIT === 'undefined' ? DEFAULT_CONNECTION_LIMIT : parseInt(process.env.DB_CONNECTION_LIMIT, 10),
+  connectionLimit: typeof process.env.DB_CONNECTION_LIMIT === 'undefined'
+    ? DEFAULT_CONNECTION_LIMIT
+    : parseInt(process.env.DB_CONNECTION_LIMIT, 10),
   database: process.env.DB_DATABASE,
   debug: process.env.DB_DEBUG === 'TRUE',
   password: process.env.DB_PASSWORD,
@@ -21,7 +24,7 @@ if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
   options.host = process.env.DB_HOST;
 }
 
-if (typeof process.env.DB_SSL !== 'undefined' && process.env.DB_SSL === 'true') {
+if (process.env.DB_SSL === 'true') {
   options.ssl = {};
   if (typeof process.env.DB_CLIENT_CERT !== 'undefined') {
     options.ssl.cert = fs.readFileSync(process.env.DB_CLIENT_CERT);

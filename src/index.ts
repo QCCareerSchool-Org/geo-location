@@ -1,7 +1,8 @@
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
-import helmet, { HelmetOptions } from 'helmet';
+import type { HelmetOptions } from 'helmet';
+import helmet from 'helmet';
 import requestIp from 'request-ip';
 
 import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler';

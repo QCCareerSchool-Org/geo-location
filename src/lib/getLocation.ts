@@ -1,12 +1,12 @@
 import { getReader } from './getReader';
 import { secureIp } from './secureIp';
 
-export type GeoLocation = {
+export interface GeoLocation {
   countryCode: string;
   countryName: string;
   provinceCode: string | null;
   provinceName: string | null;
-};
+}
 
 const defaultLocation: Readonly<GeoLocation> = {
   countryCode: 'US',
@@ -34,7 +34,7 @@ export const getLocation = async (ip?: string): Promise<GeoLocation> => {
   const reader = await getReader();
 
   const response = reader.get(ip);
-  if (response !== null && typeof response.country !== 'undefined') { // got a response
+  if (typeof response?.country !== 'undefined') { // got a response
     const result: GeoLocation = {
       countryCode: response.country.iso_code,
       countryName: response.country.names.en,

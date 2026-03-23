@@ -1,5 +1,6 @@
 import { NodemailerTransport } from '@qccareerschool/winston-nodemailer';
 import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 import winston, { format, transports } from 'winston';
 
 dotenv.config();
@@ -52,7 +53,7 @@ const replacer = (key: string, value: unknown) => {
           ...previousValue,
           stack: value.stack?.split('\n').map(v => {
             v = v.trim();
-            return v.substr(0, 3) === 'at ' ? v.slice(3) : v;
+            return v.startsWith('at ') ? v.slice(3) : v;
           }),
         };
       }
@@ -65,6 +66,13 @@ const replacer = (key: string, value: unknown) => {
   }
   return value;
 };
+
+const transporter = nodemailer.createTransport({
+  host,
+  port,
+  secure: tls,
+  auth: { user, pass },
+});
 
 export const logger = winston.createLogger({
   format: format.combine(
@@ -79,12 +87,9 @@ export const logger = winston.createLogger({
       filename: '/var/log/node-geo-location.log',
     }),
     new NodemailerTransport({
-      auth: { pass, user },
-      filter: ({ level }) => [ 'error', 'crit', 'alert', 'emerg' ].includes(level),
+      transporter,
+      filter: ({ level }) => [ 'error', 'crit', 'alert', 'emerg' ].includes(level as string),
       from,
-      host,
-      port,
-      secure: tls,
       tags: [ 'geoLocation' ],
       to,
     }),
