@@ -1,3 +1,4 @@
+import { attachDatabasePool } from '@vercel/functions';
 import dotenv from 'dotenv';
 import type { PoolOptions } from 'mysql2/promise';
 import mysql from 'mysql2/promise';
@@ -41,6 +42,7 @@ const options: PoolOptions = {
   debug: process.env.DB_DEBUG === 'TRUE',
   password,
   user,
+  idleTimeout: 5000, // five seconds as per https://vercel.com/kb/guide/connection-pooling-with-functions
 };
 
 if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
@@ -63,3 +65,4 @@ if (process.env.DB_SSL === 'true') {
 }
 
 export const pool = mysql.createPool(options);
+attachDatabasePool(pool);
