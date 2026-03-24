@@ -6,3 +6,4 @@ client-key.pem
 client-cert.pem
 .vercel
 .env*.local
+coverage
