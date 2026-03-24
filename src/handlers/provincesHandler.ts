@@ -8,7 +8,8 @@ export interface Province {
   display: boolean;
 }
 
-const MAX_AGE = 300; // five minutes
+const maxAge = 3600; // one hour
+const sMaxAge = 86400; // one day
 
 /**
  * Express handler that returns an array of Province objects for a particular country
@@ -30,7 +31,8 @@ export const provincesHandler: RequestHandler = async (req, res) => {
   }
 
   const provinces = provincesResult.value;
-  res.setHeader('Cache-Control', `public, max-age=${MAX_AGE}`);
+  res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
+  res.setHeader('CDN-Cache-Control', `max-age=${sMaxAge}`);
   res.setHeader('X-Total', provinces.length);
   res.send(provinces);
 };

@@ -9,7 +9,7 @@ interface ProvinceRow extends RowDataPacket {
 }
 
 export const getProvinceName = async (countryCode: string, provinceCode: string): Promise<Result<string>> => {
-  let provinceCache = cache.get(countryCode);
+  let provinceCache = countryCache.get(countryCode);
 
   // get cached value or create new province cache
   if (provinceCache) {
@@ -19,7 +19,7 @@ export const getProvinceName = async (countryCode: string, provinceCode: string)
     }
   } else {
     provinceCache = new Map<string, string>();
-    cache.set(countryCode, provinceCache);
+    countryCache.set(countryCode, provinceCache);
   }
 
   // look up value
@@ -38,4 +38,4 @@ export const getProvinceName = async (countryCode: string, provinceCode: string)
   }
 };
 
-const cache = new Map<string, Map<string, string>>();
+const countryCache = new Map<string, Map<string, string>>();

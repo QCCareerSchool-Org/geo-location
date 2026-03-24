@@ -2,7 +2,7 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./src",
+    // "rootDir": "./src",
     "outDir": "./dist",
 
     // Environment Settings
@@ -10,16 +10,16 @@
     "module": "commonjs",
     // "moduleResolution": "node",
     "target": "esnext",
-    "types": [],
+    "types": [ "node", "jest" ],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
 
     // Other Outputs
-    // "sourceMap": true,
-    // "declaration": true,
-    // "declarationMap": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -43,7 +43,6 @@
     "skipLibCheck": true,
 
     "esModuleInterop": true,
+    "noEmit": true,
   },
-  "include": [ "src", "eslint.config.mjs" ],
-  "exclude": [ "node_modules" ]
 }

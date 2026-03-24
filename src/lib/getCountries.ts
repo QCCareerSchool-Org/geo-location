@@ -11,11 +11,6 @@ interface CountryRow extends RowDataPacket {
 }
 
 export const getCountries = async (excludeOfac = false): Promise<Result<Country[]>> => {
-  const cacheKey: CacheKey = excludeOfac ? 'excludeOfac' : 'includeOfac';
-  if (cache[cacheKey]) {
-    return success(cache[cacheKey]);
-  }
-
   const sql = excludeOfac
     ? 'SELECT code, name FROM countries WHERE ofac = 0 ORDER BY name'
     : 'SELECT code, name FROM countries ORDER BY name';
@@ -23,18 +18,8 @@ export const getCountries = async (excludeOfac = false): Promise<Result<Country[
   try {
     await using connection = await pool.getConnection();
     const [ rows ] = await connection.query<CountryRow[]>(sql);
-    cache[cacheKey] = rows;
     return success(rows);
   } catch (err) {
     return failure(err instanceof Error ? err : Error(String(err)));
   }
 };
-
-interface Cache {
-  includeOfac?: Country[];
-  excludeOfac?: Country[];
-}
-
-type CacheKey = keyof Cache;
-
-const cache: Cache = {};
