@@ -20,12 +20,14 @@ export const provincesHandler: RequestHandler = async (req, res) => {
   const countryCode = req.query.countryCode;
 
   if (typeof countryCode !== 'string') {
+    console.warn('countryCode missing');
     res.status(400).send({ message: '"countryCode" is required' });
     return;
   }
 
   const provincesResult = await getProvinces(countryCode);
   if (!provincesResult.success) {
+    console.error(`Error fetching provinces for ${countryCode}`);
     res.status(500).send({ message: 'Internal server error' });
     return;
   }
@@ -33,6 +35,11 @@ export const provincesHandler: RequestHandler = async (req, res) => {
   const provinces = provincesResult.value;
   res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
   res.setHeader('CDN-Cache-Control', `max-age=${sMaxAge}`);
-  res.setHeader('X-Total', provinces.length);
-  res.send(provinces);
+
+  if (provinces.length) {
+    res.setHeader('X-Total', provinces.length);
+    res.send(provinces);
+  } else {
+    res.status(404).send({ message: 'Not found' });
+  }
 };
