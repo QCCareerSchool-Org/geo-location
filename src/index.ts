@@ -1,31 +1,27 @@
 import compression from 'compression';
+import type { CorsOptions } from 'cors';
 import cors from 'cors';
 import express from 'express';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
-import requestIp from 'request-ip';
 
-import { clientGeoLocationHandler } from './handlers/clientGeoLocationHandler';
 import { countriesHandler } from './handlers/countriesHandler';
 import { cssHandler } from './handlers/cssHandler';
-import { errorHandler } from './handlers/errorHandler';
 import { geoLocationHandler } from './handlers/geoLocationHandler';
-import { httpErrorHandler } from './handlers/httpErrorHandler';
+import { globalErrorHandler } from './handlers/globalErrorHandler';
 import { provincesHandler } from './handlers/provincesHandler';
-import { logger } from './logger';
 
-const corsOptions: cors.CorsOptions = {
+const corsOptions: CorsOptions = {
   exposedHeaders: [ 'X-Total' ],
   origin: [
     /(?:.*\.)?qccareerschool\.com$/u,
-    /(?:.*\.)?qcmakeupacademy\.com$/u,
-    /(?:.*\.)?qceventplanning\.com$/u,
     /(?:.*\.)?qcdesignschool\.com$/u,
-    /(?:.*\.)?doggroomingcourse\.com$/u,
-    /(?:.*\.)?winghill\.com$/u,
-    /(?:.*\.)?qcwellnessstudies\.com$/u,
+    /(?:.*\.)?qceventplanning\.com$/u,
+    /(?:.*\.)?qcmakeupacademy\.com$/u,
     /(?:.*\.)?qcpetstudies\.com$/u,
-    /(?:.*-)?qccareerschool\.vercel\.app$/u,
+    /(?:.*\.)?qcwellnessstudies\.com$/u,
+    /(?:.*\.)?winghill\.com$/u,
+    /(?:.*\.)?pawparentacademy\.com$/u,
     /(?:.*\.)?localhost(?::\d{1,5})?$/u,
   ],
 };
@@ -36,27 +32,20 @@ const helmetOptions: HelmetOptions = {
   noSniff: false, // already done in apache
   frameguard: false, // already done in apache
   crossOriginResourcePolicy: false,
-} as const;
+};
 
-const router = express.Router();
-router.get('/provinces', provincesHandler);
-router.get('/countries', countriesHandler);
-router.get('/clientIp', clientGeoLocationHandler);
-router.get('/ip', requestIp.mw(), geoLocationHandler);
-router.get('/css', requestIp.mw(), cssHandler);
-
-const app: express.Express = express();
+const app = express();
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 app.use(compression());
-app.use((req, res, next) => {
-  if (req.headers['x-forwarded-for'] === '135.23.119.183' || req.headers['x-forwarded-for'] === '173.242.186.194') {
-    logger.info(req.headers);
-  }
-  next();
-});
-app.use('/geoLocation', router);
-app.use(httpErrorHandler);
-app.use(errorHandler);
+app.get('/provinces', provincesHandler);
+app.get('/countries', countriesHandler);
+app.get('/ip', geoLocationHandler);
+app.get('/css', cssHandler);
+app.use(globalErrorHandler);
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(8080);
+}
 
 export default app;

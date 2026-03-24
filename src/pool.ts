@@ -1,21 +1,46 @@
 import dotenv from 'dotenv';
-import fs from 'fs';
 import type { PoolOptions } from 'mysql2/promise';
 import mysql from 'mysql2/promise';
+import path from 'node:path';
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+}
 
-const DEFAULT_CONNECTION_LIMIT = 20;
+const user = process.env.DB_USERNAME;
+if (typeof user === 'undefined') {
+  throw Error('Environment variable DB_USERNAME not found');
+}
+
+const password = process.env.DB_PASSWORD;
+if (typeof password === 'undefined') {
+  throw Error('Environment variable DB_PASSWORD not found');
+}
+
+const database = process.env.DB_DATABASE;
+if (typeof database === 'undefined') {
+  throw Error('Environment variable DB_DATABASE not found');
+}
+
+const charset = process.env.DB_CHARSET;
+if (typeof charset === 'undefined') {
+  throw Error('Environment variable DB_CHARSET not found');
+}
+
+const connectionLimit = typeof process.env.DB_CONNECTION_LIMIT !== 'undefined'
+  ? parseInt(process.env.DB_CONNECTION_LIMIT, 10)
+  : 20;
+if (isNaN(connectionLimit)) {
+  throw Error('Invalid value for environment variable DB_CONNECTION_LIMIT');
+}
 
 const options: PoolOptions = {
-  charset: process.env.DB_CHARSET,
-  connectionLimit: typeof process.env.DB_CONNECTION_LIMIT === 'undefined'
-    ? DEFAULT_CONNECTION_LIMIT
-    : parseInt(process.env.DB_CONNECTION_LIMIT, 10),
-  database: process.env.DB_DATABASE,
+  charset,
+  connectionLimit,
+  database,
   debug: process.env.DB_DEBUG === 'TRUE',
-  password: process.env.DB_PASSWORD,
-  user: process.env.DB_USERNAME,
+  password,
+  user,
 };
 
 if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
@@ -27,13 +52,13 @@ if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
 if (process.env.DB_SSL === 'true') {
   options.ssl = {};
   if (typeof process.env.DB_CLIENT_CERT !== 'undefined') {
-    options.ssl.cert = fs.readFileSync(process.env.DB_CLIENT_CERT);
+    options.ssl.cert = Buffer.from(process.env.DB_CLIENT_CERT, 'base64').toString('utf8');
   }
   if (typeof process.env.DB_CLIENT_KEY !== 'undefined') {
-    options.ssl.key = fs.readFileSync(process.env.DB_CLIENT_KEY);
+    options.ssl.key = Buffer.from(process.env.DB_CLIENT_KEY, 'base64').toString('utf8');
   }
   if (typeof process.env.DB_SERVER_CA !== 'undefined') {
-    options.ssl.ca = fs.readFileSync(process.env.DB_SERVER_CA);
+    options.ssl.ca = Buffer.from(process.env.DB_SERVER_CA, 'base64').toString('utf8');
   }
 }
 

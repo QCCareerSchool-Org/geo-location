@@ -1,11 +1,14 @@
 {
   "name": "geo-location",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist",
+    "test": "jest --verbose",
+    "test:watch": "jest --verbose --watch",
+    "start": "node dist/index.mjs",
     "build": "tsc",
+    "build:dev": "tsc --project tsconfig.build.json",
     "lint": "eslint src/**"
   },
   "author": "Dave Welsh",
@@ -13,33 +16,39 @@
   "private": true,
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.4",
+    "@jest-mock/express": "^3.0.0",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@swc/jest": "^0.2.39",
     "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/helmet": "^0.0.48",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.12.0",
     "@types/nodemailer": "^7.0.11",
     "@types/request-ip": "^0.0.41",
     "eslint": "^9.39.4",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
+    "jest": "^30.3.0",
     "jiti": "^2.6.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript-eslint": "^8.57.2"
   },
   "dependencies": {
-    "@qccareerschool/http-status": "^2.1.1",
     "@qccareerschool/winston-nodemailer": "^6.0.0",
+    "@vercel/functions": "^3.4.3",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
+    "eslint-plugin-jest": "^29.15.1",
     "express": "^5.2.1",
+    "generic-result-type": "^2.3.0",
     "helmet": "^8.1.0",
-    "maxmind": "^5.0.5",
     "mysql2": "^3.20.0",
     "nodemailer": "^8.0.3",
-    "request-ip": "^3.3.0",
     "winston": "^3.19.0"
   }
 }

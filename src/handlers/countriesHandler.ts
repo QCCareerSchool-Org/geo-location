@@ -1,14 +1,9 @@
 import type { RequestHandler } from 'express';
-import type { RowDataPacket } from 'mysql2';
 
-import { pool } from '../pool';
+import { getCountries } from '../lib/getCountries';
 
-export interface Country {
-  code: string;
-  name: string;
-}
-
-const MAX_AGE = 300; // five minutes
+const maxAge = 3600; // one hour
+const sMaxAge = 86400; // one day
 
 /**
  * Express handler that returns an array of Country objects
@@ -16,13 +11,15 @@ const MAX_AGE = 300; // five minutes
  * @param res Express response
  */
 export const countriesHandler: RequestHandler = async (req, res) => {
-  await using connection = await pool.getConnection();
-  const sql = req.query.ofac !== '0'
-    ? 'SELECT code, name FROM countries ORDER BY name'
-    : 'SELECT code, name FROM countries WHERE ofac = 0 ORDER BY name';
-  const [ results ] = await connection.query<RowDataPacket[]>(sql, req.query.countryCode);
+  const countriesResult = await getCountries(req.query.ofac === '0');
+  if (!countriesResult.success) {
+    res.status(500).send({ message: 'Internal server error' });
+    return;
+  }
 
-  res.setHeader('Cache-Control', `public, max-age=${MAX_AGE}`);
-  res.setHeader('X-Total', results.length);
-  res.send(results);
+  const countries = countriesResult.value;
+  res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
+  res.setHeader('CDN-Cache-Control', `max-age=${sMaxAge}`);
+  res.setHeader('X-Total', countries.length);
+  res.send(countries);
 };

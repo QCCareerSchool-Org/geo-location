@@ -1,9 +1,8 @@
 import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
-import { defineConfig, globalIgnores } from 'eslint/config';
+import { defineConfig } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
 import tseslint from 'typescript-eslint';
-
 const eslintConfig = defineConfig([
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
@@ -16,16 +15,6 @@ const eslintConfig = defineConfig([
       },
     },
   },
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    '.next/**',
-    'out/**',
-    'build/**',
-    'next-env.d.ts',
-    // custom
-    'public',
-  ]),
   {
     plugins: {
       '@stylistic': stylistic,
@@ -38,7 +27,7 @@ const eslintConfig = defineConfig([
           alwaysTryTypes: true,
         },
         node: {
-          extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
       },
     },
@@ -46,7 +35,7 @@ const eslintConfig = defineConfig([
       'array-callback-return': 'error',
       'block-scoped-var': 'error',
       'curly': 'error',
-      'dot-location': [ 'error', 'property' ],
+      'dot-location': ['error', 'property'],
       'dot-notation': 'off',
       'eqeqeq': 'error',
       'guard-for-in': 'error',
@@ -90,9 +79,9 @@ const eslintConfig = defineConfig([
       'yoda': 'error',
       'no-shadow': 'off',
       'no-unused-vars': 'off',
-      'array-bracket-newline': [ 'error', 'consistent' ],
-      'array-bracket-spacing': [ 'error', 'always' ],
-      'array-element-newline': [ 'error', 'consistent' ],
+      'array-bracket-newline': ['error', 'consistent'],
+      'array-bracket-spacing': ['error', 'always'],
+      'array-element-newline': ['error', 'consistent'],
       'block-spacing': 'error',
       'brace-style': 'off',
       'camelcase': 'error',
@@ -102,38 +91,38 @@ const eslintConfig = defineConfig([
       'computed-property-spacing': 'error',
       'eol-last': 'error',
       'func-call-spacing': 'off',
-      'function-call-argument-newline': [ 'error', 'consistent' ],
-      'function-paren-newline': [ 'error', 'multiline-arguments' ],
+      'function-call-argument-newline': ['error', 'consistent'],
+      'function-paren-newline': ['error', 'multiline-arguments'],
       'implicit-arrow-linebreak': 'error',
       'indent': 'off',
       'jsx-quotes': 'error',
       'key-spacing': 'error',
       'keyword-spacing': 'off',
-      'linebreak-style': [ 'error' ],
+      'linebreak-style': ['error'],
       'lines-between-class-members': 'off',
       'new-parens': 'error',
       'no-bitwise': 'error',
       'no-lonely-if': 'off',
       'no-mixed-operators': 'error',
       'no-multi-assign': 'error',
-      'no-multiple-empty-lines': [ 'error', { max: 1, maxEOF: 0, maxBOF: 0 } ],
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0, maxBOF: 0 }],
       'no-tabs': 'error',
       'no-trailing-spaces': 'error',
       'no-unneeded-ternary': 'error',
       'no-whitespace-before-property': 'error',
       'object-curly-newline': 'error',
       'object-curly-spacing': 'off',
-      'object-property-newline': [ 'error', {
+      'object-property-newline': ['error', {
         allowAllPropertiesOnSameLine: true,
-      } ],
+      }],
       'object-shorthand': 'error',
-      'one-var': [ 'error', 'never' ],
-      'padding-line-between-statements': [ 'error', {
+      'one-var': ['error', 'never'],
+      'padding-line-between-statements': ['error', {
         blankLine: 'always',
         prev: '*',
         next: 'function',
-      } ],
-      'quote-props': [ 'error', 'consistent-as-needed' ],
+      }],
+      'quote-props': ['error', 'consistent-as-needed'],
       'quotes': 'off',
       'semi': 'off',
       'semi-spacing': 'error',
@@ -146,29 +135,28 @@ const eslintConfig = defineConfig([
       'spaced-comment': 'error',
       'switch-colon-spacing': 'error',
       'template-tag-spacing': 'error',
-      'arrow-parens': [ 'error', 'as-needed' ],
+      'arrow-parens': ['error', 'as-needed'],
       'arrow-spacing': 'error',
       'generator-star-spacing': 'error',
       'no-confusing-arrow': 'error',
       'no-var': 'error',
       'prefer-const': 'error',
-      'sort-imports': [ 'error', {
+      'sort-imports': ['error', {
         ignoreCase: true,
         ignoreDeclarationSort: true,
         ignoreMemberSort: false,
-        memberSyntaxSortOrder: [ 'none', 'all', 'multiple', 'single' ],
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
         allowSeparatedGroups: true,
-      } ],
+      }],
       'template-curly-spacing': 'error',
       'yield-star-spacing': 'error',
-
       // @typescript-eslint rules
-      '@typescript-eslint/consistent-type-imports': [ 'error', { prefer: 'type-imports', fixStyle: 'separate-type-imports' } ],
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports', fixStyle: 'separate-type-imports' }],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-member-accessibility': 'off',
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/method-signature-style': 'error',
-      '@typescript-eslint/no-confusing-void-expression': [ 'error', { ignoreArrowShorthand: true } ],
+      '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/only-throw-error': 'error',
@@ -180,8 +168,7 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/promise-function-async': 'error',
       '@typescript-eslint/prefer-reduce-type-parameter': 'error',
       '@typescript-eslint/prefer-string-starts-ends-with': 'error',
-      '@typescript-eslint/restrict-template-expressions': [ 'error', { allowNumber: true } ],
-
+      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       // @typescript-eslint rules
       '@typescript-eslint/dot-notation': 'error',
       '@typescript-eslint/no-implied-eval': 'error',
@@ -191,51 +178,55 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/require-await': 'warn',
       '@typescript-eslint/return-await': 'error',
-
       // @stylistic rules
-      '@stylistic/brace-style': [ 'error', '1tbs', {
+      '@stylistic/brace-style': ['error', '1tbs', {
         allowSingleLine: true,
-      } ],
-      '@stylistic/comma-dangle': [ 'error', 'always-multiline' ],
+      }],
+      '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/comma-spacing': 'error',
-      '@stylistic/indent': [ 'error', 2 ],
+      '@stylistic/indent': ['error', 2],
       '@stylistic/function-call-spacing': 'error',
-      '@stylistic/lines-between-class-members': [ 'error', 'always', {
+      '@stylistic/lines-between-class-members': ['error', 'always', {
         exceptAfterSingleLine: true,
-      } ],
+      }],
       '@stylistic/member-delimiter-style': 'error',
-      '@stylistic/object-curly-spacing': [ 'error', 'always' ],
+      '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/type-annotation-spacing': 'error',
-      '@stylistic/quotes': [ 'error', 'single', {
+      '@stylistic/quotes': ['error', 'single', {
         avoidEscape: true,
         allowTemplateLiterals: 'always',
-      } ],
+      }],
       '@stylistic/semi': 'error',
-      '@stylistic/space-before-function-paren': [ 'error', {
+      '@stylistic/space-before-function-paren': ['error', {
         anonymous: 'always',
         named: 'never',
         asyncArrow: 'always',
-      } ],
+      }],
       '@stylistic/space-infix-ops': 'error',
-
-      'import/consistent-type-specifier-style': [ 'error', 'prefer-top-level' ],
-      'import/order': [ 'error', {
+      'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+      'import/order': ['error', {
         'alphabetize': {
           order: 'asc',
           orderImportKind: 'asc',
           caseInsensitive: true,
         },
         'groups': [
-          [ 'builtin', 'external' ],
-          [ 'internal', 'parent', 'sibling', 'index', 'object', 'unknown' ],
+          ['builtin', 'external'],
+          ['internal', 'parent', 'sibling', 'index', 'object', 'unknown'],
         ],
         'newlines-between': 'always',
-      } ],
+      }],
     },
   },
   {
-    ignores: [ 'node_modules/**', '.next/**', 'out/**', 'build/**', 'next-env.d.ts' ],
+    ignores: ['node_modules/**'],
   },
+  {
+    files: ["**/*.spec.ts", "**/*.test.ts"],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
+      'jest/unbound-method': 'error'
+    }
+  }
 ]);
-
 export default eslintConfig;
