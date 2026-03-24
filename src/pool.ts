@@ -42,6 +42,7 @@ const options: PoolOptions = {
   debug: process.env.DB_DEBUG === 'TRUE',
   password,
   user,
+  idleTimeout: 5000, // five seconds as per https://vercel.com/kb/guide/connection-pooling-with-functions
 };
 
 if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
