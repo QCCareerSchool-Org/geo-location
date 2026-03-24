@@ -44,4 +44,8 @@ app.get('/ip', geoLocationHandler);
 app.get('/css', cssHandler);
 app.use(globalErrorHandler);
 
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(8080);
+}
+
 export default app;

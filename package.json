@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/index.mjs",
-    "type-check": "tsc --noEmit",
+    "build": "echo \"BUILDING!!!!!!\"",
     "lint": "eslint src/**"
   },
   "author": "Dave Welsh",
@@ -31,7 +31,6 @@
     "typescript-eslint": "^8.57.2"
   },
   "dependencies": {
-    "@qccareerschool/http-status": "^2.1.1",
     "@qccareerschool/winston-nodemailer": "^6.0.0",
     "compression": "^1.8.1",
     "cors": "^2.8.6",

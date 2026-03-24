@@ -1,9 +1,10 @@
 import dotenv from 'dotenv';
 import type { PoolOptions } from 'mysql2/promise';
 import mysql from 'mysql2/promise';
+import path from 'node:path';
 
 if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
+  dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 }
 
 const user = process.env.DB_USERNAME;

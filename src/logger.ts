@@ -1,9 +1,12 @@
 import { NodemailerTransport } from '@qccareerschool/winston-nodemailer';
 import dotenv from 'dotenv';
+import path from 'node:path';
 import nodemailer from 'nodemailer';
 import winston, { format, transports } from 'winston';
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+}
 
 if (typeof process.env.EMAIL_USERNAME === 'undefined') {
   throw new Error('EMAIL_USERNAME not specified in .env file');
