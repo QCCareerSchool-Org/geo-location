@@ -37,7 +37,6 @@ const helmetOptions: HelmetOptions = {
 
 const app = express();
 
-app.options('*', cors());
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 app.use(compression());
