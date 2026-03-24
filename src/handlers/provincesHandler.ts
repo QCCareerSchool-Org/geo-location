@@ -1,5 +1,6 @@
 import type { RequestHandler } from 'express';
 
+import { browserCacheMs, cdnCacheMs, staleWhileRevalidateMs } from '../config';
 import { getProvinces } from '../lib/getProvinces';
 
 export interface Province {
@@ -7,9 +8,6 @@ export interface Province {
   name: string;
   display: boolean;
 }
-
-const maxAge = 3600; // one hour
-const sMaxAge = 86400; // one day
 
 /**
  * Express handler that returns an array of Province objects for a particular country
@@ -33,8 +31,8 @@ export const provincesHandler: RequestHandler = async (req, res) => {
   }
 
   const provinces = provincesResult.value;
-  res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
-  res.setHeader('CDN-Cache-Control', `max-age=${sMaxAge}`);
+  res.setHeader('Cache-Control', `public, max-age=${browserCacheMs}`);
+  res.setHeader('CDN-Cache-Control', `max-age=${cdnCacheMs}, stale-while-revalidate=${staleWhileRevalidateMs}`);
 
   if (provinces.length) {
     res.setHeader('X-Total', provinces.length);
