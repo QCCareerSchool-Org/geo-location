@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@qccareerschool/winston-nodemailer": "^6.0.0",
+    "@vercel/functions": "^3.4.3",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",

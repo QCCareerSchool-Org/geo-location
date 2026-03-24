@@ -1,3 +1,4 @@
+import { getCache } from '@vercel/functions';
 import type { Result } from 'generic-result-type';
 import { failure, success } from 'generic-result-type';
 import type { RowDataPacket } from 'mysql2';
@@ -9,20 +10,14 @@ interface ProvinceRow extends RowDataPacket {
 }
 
 export const getProvinceName = async (countryCode: string, provinceCode: string): Promise<Result<string>> => {
-  let provinceCache = countryCache.get(countryCode);
+  const cache = getCache();
+  const key = `province:${countryCode}:${provinceCode}`;
 
-  // get cached value or create new province cache
-  if (provinceCache) {
-    const cached = provinceCache.get(provinceCode);
-    if (cached) {
-      return success(cached);
-    }
-  } else {
-    provinceCache = new Map<string, string>();
-    countryCache.set(countryCode, provinceCache);
+  const cached = await cache.get(key);
+  if (cached && typeof cached === 'string') {
+    return success(cached);
   }
 
-  // look up value
   try {
     await using connection = await pool.getConnection();
     const [ rows ] = await connection.query<ProvinceRow[]>('SELECT name FROM provinces WHERE country_code = ? AND code = ? LIMIT 1', [ countryCode, provinceCode ]);
@@ -30,12 +25,15 @@ export const getProvinceName = async (countryCode: string, provinceCode: string)
     if (!provinceRow) {
       return failure(Error('Not found'));
     }
-    provinceCache.set(provinceCode, provinceRow.name);
+
+    try {
+      await cache.set(key, provinceRow.name, { ttl: 3600 });
+    } catch (err) {
+      console.error(err);
+    }
 
     return success(provinceRow.name);
   } catch (err) {
     return failure(err instanceof Error ? err : Error(String(err)));
   }
 };
-
-const countryCache = new Map<string, Map<string, string>>();
