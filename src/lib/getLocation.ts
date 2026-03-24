@@ -17,7 +17,9 @@ export const getLocation = async (countryHeader: Header, provinceHeader: Header)
 
     const countryNameResult = await getCountryName(location.countryCode);
     if (countryNameResult.success) {
-      location.countryName = countryNameResult.value;
+      location.countryName = countryNameResult.value ?? '';
+    } else {
+      console.error(countryNameResult.error);
     }
 
     if (needsProvince(location.countryCode) && typeof provinceHeader === 'string') {
@@ -26,7 +28,9 @@ export const getLocation = async (countryHeader: Header, provinceHeader: Header)
 
       const provinceNameResult = await getProvinceName(location.countryCode, location.provinceCode);
       if (provinceNameResult.success) {
-        location.provinceName = provinceNameResult.value;
+        location.provinceName = provinceNameResult.value ?? '';
+      } else {
+        console.error(provinceNameResult.error);
       }
     }
 
