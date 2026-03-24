@@ -1,6 +1,6 @@
 {
   "name": "geo-location",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "",
   "type": "commonjs",
   "scripts": {
@@ -38,7 +38,6 @@
     "typescript-eslint": "^8.57.2"
   },
   "dependencies": {
-    "@qccareerschool/winston-nodemailer": "^6.0.0",
     "@vercel/functions": "^3.4.3",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
@@ -47,8 +46,6 @@
     "express": "^5.2.1",
     "generic-result-type": "^2.3.0",
     "helmet": "^8.1.0",
-    "mysql2": "^3.20.0",
-    "nodemailer": "^8.0.3",
-    "winston": "^3.19.0"
+    "mysql2": "^3.20.0"
   }
 }
