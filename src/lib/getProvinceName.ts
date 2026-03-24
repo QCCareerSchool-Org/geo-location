@@ -9,7 +9,7 @@ interface ProvinceRow extends RowDataPacket {
   name: string;
 }
 
-export const getProvinceName = async (countryCode: string, provinceCode: string): Promise<Result<string>> => {
+export const getProvinceName = async (countryCode: string, provinceCode: string): Promise<Result<string | undefined>> => {
   const cache = getCache();
   const key = `province:${countryCode}:${provinceCode}`;
 
@@ -21,18 +21,15 @@ export const getProvinceName = async (countryCode: string, provinceCode: string)
   try {
     await using connection = await pool.getConnection();
     const [ rows ] = await connection.query<ProvinceRow[]>('SELECT name FROM provinces WHERE country_code = ? AND code = ? LIMIT 1', [ countryCode, provinceCode ]);
-    const provinceRow = rows[0];
-    if (!provinceRow) {
-      return failure(Error('Not found'));
-    }
+    const value = rows[0]?.name;
 
     try {
-      await cache.set(key, provinceRow.name, { ttl: 3600 });
+      await cache.set(key, value, { ttl: 3600 });
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
 
-    return success(provinceRow.name);
+    return success(value);
   } catch (err) {
     return failure(err instanceof Error ? err : Error(String(err)));
   }
