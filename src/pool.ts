@@ -1,6 +1,7 @@
+import { attachDatabasePool } from '@vercel/functions';
 import dotenv from 'dotenv';
-import type { PoolOptions } from 'mysql2/promise';
-import mysql from 'mysql2/promise';
+import type { PoolOptions } from 'mysql2';
+import mysql from 'mysql2';
 import path from 'node:path';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -29,7 +30,7 @@ if (typeof charset === 'undefined') {
 
 const connectionLimit = typeof process.env.DB_CONNECTION_LIMIT !== 'undefined'
   ? parseInt(process.env.DB_CONNECTION_LIMIT, 10)
-  : 20;
+  : 5;
 if (isNaN(connectionLimit)) {
   throw Error('Invalid value for environment variable DB_CONNECTION_LIMIT');
 }
@@ -63,4 +64,7 @@ if (process.env.DB_SSL === 'true') {
   }
 }
 
-export const pool = mysql.createPool(options);
+const rawPool = mysql.createPool(options);
+attachDatabasePool(rawPool);
+
+export const pool = rawPool.promise();
