@@ -14,15 +14,16 @@ import { provincesHandler } from './handlers/provincesHandler';
 const corsOptions: CorsOptions = {
   exposedHeaders: [ 'X-Total' ],
   origin: [
-    /(?:.*\.)?qccareerschool\.com$/u,
-    /(?:.*\.)?qcdesignschool\.com$/u,
-    /(?:.*\.)?qceventplanning\.com$/u,
-    /(?:.*\.)?qcmakeupacademy\.com$/u,
-    /(?:.*\.)?qcpetstudies\.com$/u,
-    /(?:.*\.)?qcwellnessstudies\.com$/u,
-    /(?:.*\.)?winghill\.com$/u,
-    /(?:.*\.)?pawparentacademy\.com$/u,
-    /(?:.*\.)?localhost(?::\d{1,5})?$/u,
+    /\.example2\.com$/u,
+    /\.qccareerschool\.com$/u,
+    /\.qcdesignschool\.com$/u,
+    /\.qceventplanning\.com$/u,
+    /\.qcmakeupacademy\.com$/u,
+    /\.qcpetstudies\.com$/u,
+    /\.qcwellnessstudies\.com$/u,
+    /\.winghill\.com$/u,
+    /\.pawparentacademy\.com$/u,
+    /\.?localhost(?::\d{1,5})?$/u,
   ],
 };
 
@@ -35,6 +36,8 @@ const helmetOptions: HelmetOptions = {
 };
 
 const app = express();
+
+app.options('*', cors());
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 app.use(compression());
