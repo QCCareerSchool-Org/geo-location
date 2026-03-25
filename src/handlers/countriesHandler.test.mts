@@ -1,7 +1,7 @@
 import { getMockReq, getMockRes } from '@jest-mock/express';
 import { failure, success } from 'generic-result-type';
 
-import { countriesHandler } from './countriesHandler';
+import { countriesHandler } from './countriesHandler.mjs';
 import { getCountries } from '../lib/getCountries';
 
 jest.mock('../lib/getCountries');

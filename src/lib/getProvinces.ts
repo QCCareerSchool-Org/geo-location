@@ -3,7 +3,7 @@ import { failure, success } from 'generic-result-type';
 import type { RowDataPacket } from 'mysql2';
 
 import type { Province } from '../domain/province';
-import { pool } from '../pool';
+import { pool } from '../pool.mjs';
 
 interface ProvinceRow extends RowDataPacket {
   code: string;
