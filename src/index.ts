@@ -5,11 +5,11 @@ import express from 'express';
 import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 
-import { countriesHandler } from './handlers/countriesHandler.mjs';
-import { cssHandler } from './handlers/cssHandler.mjs';
-import { geoLocationHandler } from './handlers/geoLocationHandler.mjs';
-import { globalErrorHandler } from './handlers/globalErrorHandler.mjs';
-import { provincesHandler } from './handlers/provincesHandler.mjs';
+import { countriesHandler } from './handlers/countriesHandler.js';
+import { cssHandler } from './handlers/cssHandler.js';
+import { geoLocationHandler } from './handlers/geoLocationHandler.js';
+import { globalErrorHandler } from './handlers/globalErrorHandler.js';
+import { provincesHandler } from './handlers/provincesHandler.js';
 
 const corsOptions: CorsOptions = {
   exposedHeaders: [ 'X-Total' ],

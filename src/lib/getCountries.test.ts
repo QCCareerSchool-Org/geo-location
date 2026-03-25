@@ -1,5 +1,5 @@
 import { getCountries } from "./getCountries";
-import { pool } from "../pool.mjs";
+import { pool } from "../pool.js";
 import { isSuccessResult } from "generic-result-type";
 
 jest.mock('../pool', () => ({

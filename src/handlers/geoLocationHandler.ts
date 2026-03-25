@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { browserCacheMs } from '../config.mjs';
+import { browserCacheMs } from '../config.js';
 import { getLocation } from '../lib/getLocation';
 
 /**

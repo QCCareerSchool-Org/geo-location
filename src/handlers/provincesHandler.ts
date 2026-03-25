@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { browserCacheMs, cdnCacheMs, staleWhileRevalidateMs } from '../config.mjs';
+import { browserCacheMs, cdnCacheMs, staleWhileRevalidateMs } from '../config.js';
 import { getProvinces } from '../lib/getProvinces';
 
 export interface Province {

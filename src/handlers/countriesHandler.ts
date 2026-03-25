@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { browserCacheMs, cdnCacheMs } from '../config.mjs';
+import { browserCacheMs, cdnCacheMs } from '../config.js';
 import { getCountries } from '../lib/getCountries';
 
 /**
