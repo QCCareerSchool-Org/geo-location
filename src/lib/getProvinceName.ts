@@ -3,6 +3,7 @@ import type { Result } from 'generic-result-type';
 import { failure, success } from 'generic-result-type';
 import type { RowDataPacket } from 'mysql2';
 
+import { memoryCacheMs } from '../config';
 import { pool } from '../pool';
 
 interface ProvinceRow extends RowDataPacket {
@@ -24,7 +25,7 @@ export const getProvinceName = async (countryCode: string, provinceCode: string)
     const value = rows[0]?.name;
 
     try {
-      await cache.set(key, value, { ttl: 3600 });
+      await cache.set(key, value, { ttl: memoryCacheMs });
     } catch (err) {
       console.warn(err);
     }

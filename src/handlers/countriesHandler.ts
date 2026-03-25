@@ -1,9 +1,7 @@
 import type { RequestHandler } from 'express';
 
+import { browserCacheMs, cdnCacheMs } from '../config';
 import { getCountries } from '../lib/getCountries';
-
-const maxAge = 3600; // one hour
-const sMaxAge = 86400; // one day
 
 /**
  * Express handler that returns an array of Country objects
@@ -18,8 +16,8 @@ export const countriesHandler: RequestHandler = async (req, res) => {
   }
 
   const countries = countriesResult.value;
-  res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
-  res.setHeader('CDN-Cache-Control', `max-age=${sMaxAge}`);
+  res.setHeader('Cache-Control', `public, max-age=${browserCacheMs}`);
+  res.setHeader('CDN-Cache-Control', `max-age=${cdnCacheMs}`);
   res.setHeader('X-Total', countries.length);
   res.send(countries);
 };

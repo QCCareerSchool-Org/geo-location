@@ -1,7 +1,7 @@
 import { attachDatabasePool } from '@vercel/functions';
 import dotenv from 'dotenv';
 import type { PoolOptions } from 'mysql2';
-import mysql from 'mysql2';
+import { createPool } from 'mysql2';
 import path from 'node:path';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -64,7 +64,7 @@ if (process.env.DB_SSL === 'true') {
   }
 }
 
-const rawPool = mysql.createPool(options);
+const rawPool = createPool(options);
 attachDatabasePool(rawPool);
 
 export const pool = rawPool.promise();
