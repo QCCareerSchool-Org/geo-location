@@ -7,35 +7,35 @@ import { defaultLocation } from '../domain/geoLocation';
 type Header = string | string[] | undefined;
 
 export const getLocation = async (countryHeader: Header, provinceHeader: Header): Promise<GeoLocation> => {
-  if (typeof countryHeader === 'string') {
-    const location: GeoLocation = {
-      countryCode: countryHeader,
-      countryName: '',
-      provinceCode: null,
-      provinceName: null,
-    };
-
-    const countryNameResult = await getCountryName(location.countryCode);
-    if (countryNameResult.success) {
-      location.countryName = countryNameResult.value ?? '';
-    } else {
-      console.error(countryNameResult.error);
-    }
-
-    if (needsProvince(location.countryCode) && typeof provinceHeader === 'string') {
-      location.provinceCode = provinceHeader;
-      location.provinceName = '';
-
-      const provinceNameResult = await getProvinceName(location.countryCode, location.provinceCode);
-      if (provinceNameResult.success) {
-        location.provinceName = provinceNameResult.value ?? '';
-      } else {
-        console.error(provinceNameResult.error);
-      }
-    }
-
-    return location;
+  if (typeof countryHeader !== 'string') {
+    return defaultLocation;
   }
 
-  return defaultLocation;
+  const location: GeoLocation = {
+    countryCode: countryHeader,
+    countryName: '',
+    provinceCode: null,
+    provinceName: null,
+  };
+
+  const countryNameResult = await getCountryName(location.countryCode);
+  if (countryNameResult.success) {
+    location.countryName = countryNameResult.value ?? '';
+  } else {
+    console.error(countryNameResult.error);
+  }
+
+  if (needsProvince(location.countryCode) && typeof provinceHeader === 'string') {
+    location.provinceCode = provinceHeader;
+    location.provinceName = '';
+
+    const provinceNameResult = await getProvinceName(location.countryCode, location.provinceCode);
+    if (provinceNameResult.success) {
+      location.provinceName = provinceNameResult.value ?? '';
+    } else {
+      console.error(provinceNameResult.error);
+    }
+  }
+
+  return location;
 };
