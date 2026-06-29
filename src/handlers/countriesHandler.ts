@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { browserCacheMs, cdnCacheMs } from '../config.js';
+import { browserCacheMs, cdnCacheMs, staleWhileRevalidateMs } from '../config.js';
 import { getCountries } from '../lib/getCountries';
 
 /**
@@ -17,7 +17,7 @@ export const countriesHandler: RequestHandler = async (req, res) => {
 
   const countries = countriesResult.value;
   res.setHeader('Cache-Control', `public, max-age=${browserCacheMs}`);
-  res.setHeader('CDN-Cache-Control', `max-age=${cdnCacheMs}`);
+  res.setHeader('CDN-Cache-Control', `max-age=${cdnCacheMs}, stale-while-revalidate=${staleWhileRevalidateMs}`);
   res.setHeader('X-Total', countries.length);
   res.send(countries);
 };

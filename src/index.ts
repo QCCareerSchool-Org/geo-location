@@ -2,7 +2,6 @@ import compression from 'compression';
 import type { CorsOptions } from 'cors';
 import cors from 'cors';
 import express from 'express';
-import type { HelmetOptions } from 'helmet';
 import helmet from 'helmet';
 
 import { countriesHandler } from './handlers/countriesHandler.js';
@@ -14,7 +13,6 @@ import { provincesHandler } from './handlers/provincesHandler.js';
 const corsOptions: CorsOptions = {
   exposedHeaders: [ 'X-Total' ],
   origin: [
-    /\.example2\.com$/u,
     /\.qccareerschool\.com$/u,
     /\.qcdesignschool\.com$/u,
     /\.qceventplanning\.com$/u,
@@ -27,18 +25,10 @@ const corsOptions: CorsOptions = {
   ],
 };
 
-// these are already done by the proxy
-const helmetOptions: HelmetOptions = {
-  referrerPolicy: false, // already done in apache
-  noSniff: false, // already done in apache
-  frameguard: false, // already done in apache
-  crossOriginResourcePolicy: false,
-};
-
 const app = express();
 
 app.use(cors(corsOptions));
-app.use(helmet(helmetOptions));
+app.use(helmet());
 app.use(compression());
 app.get('/provinces', provincesHandler);
 app.get('/countries', countriesHandler);
