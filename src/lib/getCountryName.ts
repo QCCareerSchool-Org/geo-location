@@ -3,8 +3,8 @@ import type { Result } from 'generic-result-type';
 import { failure, success } from 'generic-result-type';
 import type { RowDataPacket } from 'mysql2';
 
-import { memoryCacheMs } from '../config';
-import { pool } from '../pool';
+import { memoryCacheMs } from '../config.js';
+import { pool } from '../pool.js';
 
 interface CountryRow extends RowDataPacket {
   name: string;

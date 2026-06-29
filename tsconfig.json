@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
     // "moduleResolution": "node",
-    "target": "esnext",
+    "target": "es2020",
     "types": [ "node", "jest" ],
     // For nodejs:
     // "lib": ["esnext"],
@@ -44,5 +44,7 @@
 
     "esModuleInterop": true,
     "noEmit": true,
+    "allowJs": true
   },
+  "include": [ "src", "*.ts", "*.js", "*.mts", "*.mjs" ]
 }

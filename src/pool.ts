@@ -43,6 +43,7 @@ const options: PoolOptions = {
   password,
   user,
   idleTimeout: 5000, // five seconds as per https://vercel.com/kb/guide/connection-pooling-with-functions
+  maxIdle: 0, // how many connections to keep regardless of the timeout
 };
 
 if (typeof process.env.DB_SOCKET_PATH !== 'undefined') {
